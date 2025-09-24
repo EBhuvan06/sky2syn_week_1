@@ -510,24 +510,45 @@ This tells what kind of technology we are going to use. In this we are using CMO
 
 ## Lets check the different two input and gates
 
-  ![Types of Gates](Week_1/various_types_of_gates.png) 
-
   ```
-   cell ("sky130_fd_sc_hd__and2_0") {                                                        
+   cell ("sky130_fd_sc_hd__and2_0") {  // there are 2 inputs which means 4 possible out comes                                                       
         leakage_power () {
             value : 0.0021372000;                                                              
-            when : "!A&B";                                                    
+            when : "!A&B";  // A is low  and B is high                                                  
         }
         leakage_power () {
             value : 0.0018183000;                                                                     
-            when : "!A&!B";                                                   
+            when : "!A&!B";  // A is low  and B is low                                                  
         }
         leakage_power () {
             value : 0.0015938000;                                                             
-            when : "A&B";                                                     
+            when : "A&B";    // A is high  and B is high                                                   
         }
         leakage_power () {
             value : 0.0021392000;                                                              
-            when : "A&!B";       
+            when : "A&!B";   // A is high  and B is low         
+```
+  ![Types of Gates](Week_1/various_types_of_gates.png) 
+  From the above image 0, 2, 4 indicates different flavour of a 2 input and gate
+  From the above the parrameters varry from 0 to 4 \
+  For 0 area consumtion is less compare to 4. Which means 4 has wider transistor. \
+  wider cells (4) are faster but consume large amount of power and large area. But for smaller cells (0) delay more area consumed is less
+```
+ --------------------------------------------------------------------------------
+|      parameters      |       and2_0      |      and2_2      |      and2_4      |   
+| ---------------------|-------------------|------------------|------------------|
+| Size of the cells    |   Smaller cells   |   Medium cells   |   Wider cells    |  
+| Power consumtion     |   Small amount    |   Medium amount  |  Larger amount   |  
+| Delay                |   More delay      |   Medium delay   |   Large delay    |
+ --------------------------------------------------------------------------------
+```
 
+
+
+
+
+
+
+
+  
 
