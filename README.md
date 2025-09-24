@@ -713,3 +713,4 @@ D---->|I0  \                                                                    
 ```
 Sync_reset waits for the clock and then only if reset is low output is same as input and if reset is high it wait for the positive edge of clk then the output goes low
 
+similarly for syncset and reset it executes only for pos edge of clock if the reset is low else the output will be low irrespect of clock.
