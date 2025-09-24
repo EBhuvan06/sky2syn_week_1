@@ -543,12 +543,33 @@ This tells what kind of technology we are going to use. In this we are using CMO
  --------------------------------------------------------------------------------
 ```
 
+## Hierarical synthesis and flat synthesis
+
+```
+module sub_module2 (input a, input b, output y);
+        assign y = a | b;
+endmodule
+
+module sub_module1 (input a, input b, output y);
+        assign y = a&b;
+endmodule
 
 
+module multiple_modules (input a, input b, input c , output y);
+        wire net1;
+        sub_module1 u1(.a(a),.b(b),.y(net1));  //net1 = a&b
+        sub_module2 u2(.a(net1),.b(c),.y(y));  //y = net1|c ,ie y = a&b + c;
+endmodule
 
-
-
-
-
-  
+        SUB MODULE 1 --> U1
+            ------
+A ---------|       \          \------\                    
+           |        |-----------\      \
+B ---------|       /             \       \__________ Y
+            ------               /       /
+C ------------------------------/       /
+                               /-------/
+                            SUB MODULE 2 --> U2
+```
+when we executes in yosys the show out put should be as shown above but we are getting the output as shown below so this what we call Hierarchy synthesis which does not show and and or gates it shows instants u1 and u2. This is because we are using CMOS it chose the NAND implementation which has a stacked NMOS but for NOR stacked PMOS is done so this stacking of PMOS is always bad so we include NAND.
 
