@@ -508,6 +508,6 @@ This tells what kind of technology we are going to use. In this we are using CMO
         tree_type : "balanced_tree"; \
    }
 
-   
+  ![Types of Gates](Week_1/various_types_of_gates.png) 
 
 
