@@ -1,5 +1,6 @@
 # sky2syn_week_1
 Skywater to Synopsys
+<details>
 <summary>Week_1</summary>
 <details>
 <summary>Day_1</summary>
