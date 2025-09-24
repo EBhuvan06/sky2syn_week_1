@@ -867,7 +867,7 @@ An example of sequential constant propagation is DFF with asynchronous reset whe
                         |_________|   A      ------
         Reset________________|
 ```
-The above block can be optimised because there is only single out put 
+The above block can be optimised because there is only single output as q is giving single constant what ever the condition  
 ```
                         _________   
                         |         |          ------  
@@ -884,7 +884,7 @@ clk         __|  |__|  |__|  |__|  |__|  |__|  |__|  |__|  |_
                                          |   _________________
 q           _____________________________|__|
 ```
-But the above one can not be optimised due to there is togle of output so we can not dtermine the output so the above one can not be optimised as it is depending on both set and clk it remain as it is .
+But the above one can not be optimised due to q is giving different output for differedt condition which means there is togle of output so we can not determine the output simply it is depending on both set and clk it cannot be optimised and it remain as it is .
  
 2. Advanced [Not covered in this lab] using state optimisation, retiming and sequential Logic cloning
 
