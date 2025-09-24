@@ -724,8 +724,10 @@ GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
 ```
 GTKwave
 ![async set](Week_1/async_set.png)
+
 Synthesis Diagram
 ![synthesis async set](Week_1/syn_async_set.png)
+
 ## sync_reset
 ```
 module dff_asyncset (                                         
@@ -766,8 +768,11 @@ GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
 ```
 GTKwave
 ![sync](Week_1/sync_reset.png)
+
+
 Synthesis Diagram
 ![synthesis sync](Week_1/syn_sync_reset.png)
+
 similarly for syncset and reset it executes only for pos edge of clock if the reset is low else the output will be low irrespect of clock.
 
 
