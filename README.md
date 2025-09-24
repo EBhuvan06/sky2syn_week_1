@@ -663,6 +663,25 @@ GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
 ```
 GTKwave
 ![async reset](Week_1/async_reset.png)
+
+Synthesis
+```
+#commands for synthesis
+sudo -i
+#change the directory to where the verilog file is there
+cd /home/bhuvan/sky130RTLDesignAndSynthesisWorkshop/verilog_files/
+yosys
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog dff_asyncres.v
+synth -top dff_asyncres
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+#specifing the dff lib for maping instead of logic gates
+ abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+`
+``
+Synthesis Diagram
+
 ## Asynchronous set
 ```
 module dff_asyncset (                                         
