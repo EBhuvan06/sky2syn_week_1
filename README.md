@@ -661,7 +661,7 @@ Gtk-Message: 17:16:41.636: Failed to load module "canberra-gtk-module"
 
 GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
 ```
-
+![async reset](Week_1/async_reset.png)
 ## Asynchronous set
 ```
 module dff_asyncset (                                         
@@ -703,6 +703,7 @@ Gtk-Message: 17:26:14.164: Failed to load module "canberra-gtk-module"
 
 GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
 ```
+![async set](Week_1/async_set.png)
 ## async_set
 ```
 module dff_asyncset (                                         
@@ -741,5 +742,6 @@ Gtk-Message: 17:32:37.282: Failed to load module "canberra-gtk-module"
 
 GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
 ```
+![sync](Week_1/sync_reset.png)
 similarly for syncset and reset it executes only for pos edge of clock if the reset is low else the output will be low irrespect of clock.
 
