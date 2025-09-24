@@ -610,19 +610,37 @@ so for multiple combinations there will be bigger gliches
 This n no of combinational circuit causes large amount of gliches. \
 so to avoid this we include flops which helps to store the data and when there is a high only then output is moved but when there is low it stores the data and passes when only high.
 
+## D_FF
 
+```
+module dff_asyncres (                                         
+input clk,input async_reset,input d,                          ---------
+output reg q);                                               |         |            
+always @ (posedge clk, posedge async_reset)                  |         |           
+begin                                                 ------>| D       |
+if(async_reset)                                              |         |------->Q
+q <= 1'b0;                                            ------>|> clk    |
+else                                                         |         |
+q <= d;                                                      |         |
+end                                                   ------>|  Reset  |               
+endmodule                                                     ---------    
 
+```
+From above code at posedge of reset irrespect of the the clock the output q is going low as if is prioritised. But if reset is at negedge if block is skiped and else block is executed for every posedge of clk where input d is same as output q. 
 
+```
+Lets see the clk signal
+                                          ________________
+ async_reset ____________________________|
+               __    __    __    __    __|   __    __    _  
+clk         __|  |__|  |__|  |__|  |__|  |__|  |__|  |__|
+                 ______          ________|__
+d          _____|      |________|        |  |_____________  
+                 ______          ________
+q          _____|      |________|        |________________
 
-
-
-
-
-
-
-
-
-
+```
+Irrespective of the clock when the reset goes high output goes low.
 
 
 
