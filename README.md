@@ -692,7 +692,7 @@ if(async_set)                                                |         |------->
 q <= 1'b1;                                            ------>|> clk    |
 else                                                         |         |
 q <= d;                                                      |         |
-end                                                   ------>|  Reset  |               
+end                                                   ------>| set     |               
 endmodule                                                     ---------    
 
 ```
@@ -702,7 +702,7 @@ We are seting the q to 1 when there is async set is high irrespective of clk
 ```
 Lets see the clk signal
                                             ________________
- async_reset ______________________________|
+ async_set   ______________________________|
                __    __    __    __    __  | __    __    __  
 clk         __|  |__|  |__|  |__|  |__|  |_||  |__|  |__|  |_
                  ______          __________|__
@@ -730,7 +730,7 @@ Synthesis Diagram
 
 ## sync_reset
 ```
-module dff_asyncset (                                         
+module dff_syncreset (                                         
 input clk,input sync_reset,input d,                 
 output reg q);                                                 
 always @ (posedge clk)                     
@@ -745,7 +745,7 @@ endmodule
       |\                            
       |  \                                
 D---->|I0  \                                                                          ___|____________
-      |     |                             async_reset _______________________________|   |   
+      |     |                             sync_reset  _______________________________|   |   
       |    Y|-----                                       __    __    __    __    __    __|   __    __   
       |     |     |     ------            clk         __|  |__|  |__|  |__|  |__|  |__|  |__|  |__|  |_ 
 1'b0->|I1  /      |    |      |                            ______          ___________   |     _______
@@ -819,7 +819,7 @@ A -----||__              |                          |
                 __|__                        
                  GND 
                  
-The 6 MOS transistors is minemised to 2 MOS transistor
+The 6 MOS transistors is minimize to 2 MOS transistor
  ```                
 2. Boolean logic optimisation using K-Map and Quine McKluskey.  
 ```
@@ -854,8 +854,39 @@ C ---------->/ /       /
 ```
 such a complicated assign Y = a?(b?c:(c?a:0)):(!c) expression is simplified to a simple Y = A'C'+AC  boolean expression this what we call optimisation.
 
-
-
+## Sequential Logic optimisation
+Two types of sequential Logic optimisation 
+1. Basic using sequential constant propagation
+An example of sequential constant propagation is DFF with asynchronous reset where D input is grounded.
+```
+                         _________   
+                        |         |          ------  
+          | ----------->|D       Q|---------|       \                    RESET-posedge Q = 0
+    GND __|__           |  D-FF   |         |        |O--------Y = 1     RESET-negedge Q = 0 (D=0)
+           ------------>|>CLK     |   |-----|       /                    Y is always 1
+                        |_________|   A      ------
+        Reset________________|
+```
+The above block can be optimised because there is only single out put 
+```
+                        _________   
+                        |         |          ------  
+          | ----------->|D       Q|---------|       \               SET-posedge Q = 1 and ClK is posedge 
+    GND __|__           |  D-FF   |         |        |O--------Y    SET-negedge Q = 0 irrespective of D
+           ------------>|>CLK     |   |-----|       /               we can not say set' it is voilation    
+                        |_________|   A      ------
+        Reset________________|
+                                 
+                                          ___________________
+set         _____________________________| 
+               __    __    __    __    __|   __    __    __  
+clk         __|  |__|  |__|  |__|  |__|  |__|  |__|  |__|  |_              
+                                         |   _________________
+q           _____________________________|__|
+```
+But the above one can not be optimised due to there is togle of output so we can not dtermine the output so the above one can not be optimised as it is depending on both set and clk it remain as it is .
+ 
+2. Advanced [Not covered in this lab] using state optimisation, retiming and sequential Logic cloning
 
 
 
