@@ -1,4 +1,4 @@
-# sky2syn_week_1
+<img width="1853" height="660" alt="image" src="https://github.com/user-attachments/assets/6e72ff46-3418-4a15-a006-374055c400a4" /># sky2syn_week_1
 Skywater to Synopsys
 <details>
 <summary>Week_1</summary>
@@ -651,6 +651,16 @@ q          _____|      |________|          |_______________
 
 ```
 Irrespective of the clock when the reset goes high output goes low this is async flipflop.
+```
+# THIS IS GTKWAVE FORMAT TO LOOK OUTPUT
+root@HP-Pavilion-Plus-Laptop-14-ew0xxx:/home/bhuvan/sky130RTLDesignAndSynthesisWorkshop/verilog_files# iverilog dff_asyncres.v tb_dff_asyncres.v
+root@HP-Pavilion-Plus-Laptop-14-ew0xxx:/home/bhuvan/sky130RTLDesignAndSynthesisWorkshop/verilog_files# ./a.out 
+VCD info: dumpfile tb_dff_asyncres.vcd opened for output.
+root@HP-Pavilion-Plus-Laptop-14-ew0xxx:/home/bhuvan/sky130RTLDesignAndSynthesisWorkshop/verilog_files# gtkwave tb_dff_asyncres.vcd
+Gtk-Message: 17:16:41.636: Failed to load module "canberra-gtk-module"
+
+GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+```
 
 ## Asynchronous set
 ```
@@ -683,7 +693,16 @@ q          _____|      |________|          |
 
 ```
  In this irrespective of clock if async set is high output is high.
+```
+# THIS IS GTKWAVE FORMAT TO LOOK OUTPUT
+root@HP-Pavilion-Plus-Laptop-14-ew0xxx:/home/bhuvan/sky130RTLDesignAndSynthesisWroot@HP-Pavilion-Plus-Laptop-14-ew0xxx:/home/bhuvan/sky130RTLDesignAndSynthesisWorkshop/verilog_files# iverilog dff_async_set.v tb_dff_async_set.v
+root@HP-Pavilion-Plus-Laptop-14-ew0xxx:/home/bhuvan/sky130RTLDesignAndSynthesisWorkshop/verilog_files# ./a.out 
+VCD info: dumpfile tb_dff_async_set.vcd opened for output.           
+root@HP-Pavilion-Plus-Laptop-14-ew0xxx:/home/bhuvan/sky130RTLDesignAndSynthesisWorkshop/verilog_files# gtkwave tb_dff_async_set.vcd
+Gtk-Message: 17:26:14.164: Failed to load module "canberra-gtk-module"
 
+GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+```
 ## async_set
 ```
 module dff_asyncset (                                         
@@ -712,5 +731,15 @@ D---->|I0  \                                                                    
                         ------
 ```
 Sync_reset waits for the clock and then only if reset is low output is same as input and if reset is high it wait for the positive edge of clk then the output goes low
+```
+# THIS IS GTKWAVE FORMAT TO LOOK OUTPUT
+root@HP-Pavilion-Plus-Laptop-14-ew0xxx:/home/bhuvan/sky130RTLDesignAndSynthesisWorkshop/verilog_files# iverilog dff_syncres.v tb_dff_syncres.v
+root@HP-Pavilion-Plus-Laptop-14-ew0xxx:/home/bhuvan/sky130RTLDesignAndSynthesisWorkshop/verilog_files# ./a.out 
+VCD info: dumpfile tb_dff_syncres.vcd opened for output.
+root@HP-Pavilion-Plus-Laptop-14-ew0xxx:/home/bhuvan/sky130RTLDesignAndSynthesisWorkshop/verilog_files# gtkwave tb_dff_syncres.vcd
+Gtk-Message: 17:32:37.282: Failed to load module "canberra-gtk-module"
 
+GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+```
 similarly for syncset and reset it executes only for pos edge of clock if the reset is low else the output will be low irrespect of clock.
+
