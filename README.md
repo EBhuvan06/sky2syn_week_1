@@ -573,3 +573,65 @@ C ------------------------------/       /
 ```
 when we executes in yosys the show out put should be as shown above but we are getting the output as shown below so this what we call Hierarchy synthesis which does not show and and or gates it shows instants u1 and u2. This is because we are using CMOS it chose the NAND implementation which has a stacked NMOS but for NOR stacked PMOS is done so this stacking of PMOS is always bad so we include NAND.
 
+
+
+## Why Flops
+```
+
+               Propogation delay
+     |-------------------------------------|                            2ns |
+     V      ------                         |                           __|__|_________
+A ---------|       \     i     \------\    |                A ________|  |  |
+           |        |-----------\      \   V                           __|__|_________
+B ---------|       /             \       \__________ Y      B ________|  |  |
+            ------               /       /                    ________   |  |
+C ------------------------------/       /                   C         |__|__|_________
+      Delay of AND 2ns        /-------/                       ___________|  |   ______
+                            Delay of OR 1ns                 Y         1ns|__|__|<----------Glitch
+                                                                         |__|_________
+                                                            i ___________|  |
+                                                                         |  |
+```
+                                                                        
+There will be a propogation delay from input to the output this causes a glitch in the output. \
+when C goes high the or takes instantely and generate output. \
+But when C goes low but output takes 1ns to go low from high as the delay is of 1ns as or takes the input instantly. \
+i goes low as starting is low but when A and B goes high the output goes high only after 2ns delay of AND gate. \
+After i goes high it get feeded to the OR and both C and i perform addition ad produce output after 1ns of delay of OR gate. \
+The low to high due to delay causes the glitch as main working is the out should be constant high but due to this delay the output is glitching
+
+so for multiple combinations there will be bigger gliches
+
+```
+  ----------       ----------                       ----------
+ | Comb ckt |---->| Comb ckt |---->......soon----->| Comb ckt |----> /\/\/\/\/\                      
+  ----------       ----------                       ----------
+```
+This n no of combinational circuit causes large amount of gliches. \
+so to avoid this we include flops which helps to store the data and when there is a high only then output is moved but when there is low it stores the data and passes when only high.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
