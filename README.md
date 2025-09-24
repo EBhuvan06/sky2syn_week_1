@@ -620,6 +620,8 @@ so to avoid this we include flops which helps to store the data and when there i
 
 ## D_FF
 
+## Asynchronous Reset
+
 ```
 module dff_asyncres (                                         
 input clk,input async_reset,input d,                          ---------
@@ -638,26 +640,76 @@ From above code at posedge of reset irrespect of the the clock the output q is g
 
 ```
 Lets see the clk signal
-                                          ________________
- async_reset ____________________________|
-               __    __    __    __    __|   __    __    _  
-clk         __|  |__|  |__|  |__|  |__|  |__|  |__|  |__|
-                 ______          ________|__
-d          _____|      |________|        |  |_____________  
-                 ______          ________
-q          _____|      |________|        |________________
+                                            ________________
+ async_reset ______________________________|
+               __    __    __    __    __  | __    __    _  
+clk         __|  |__|  |__|  |__|  |__|  |_||  |__|  |__|
+                 ______          __________|__
+d          _____|      |________|          |  |_____________  
+                 ______          __________|
+q          _____|      |________|          |_______________
 
 ```
-Irrespective of the clock when the reset goes high output goes low.
+Irrespective of the clock when the reset goes high output goes low this is async flipflop.
+
+## Asynchronous set
+```
+module dff_asyncset (                                         
+input clk,input async_set,input d,                            ---------
+output reg q);                                               |         |            
+always @ (posedge clk, posedge async_set)                    |         |           
+begin                                                 ------>| D       |
+if(async_set)                                                |         |------->Q
+q <= 1'b1;                                            ------>|> clk    |
+else                                                         |         |
+q <= d;                                                      |         |
+end                                                   ------>|  Reset  |               
+endmodule                                                     ---------    
+
+```
+We are seting the q to 1 when there is async set is high irrespective of clk
 
 
+```
+Lets see the clk signal
+                                            ________________
+ async_reset ______________________________|
+               __    __    __    __    __  | __    __    __  
+clk         __|  |__|  |__|  |__|  |__|  |_||  |__|  |__|  |_
+                 ______          __________|__
+d          _____|      |________|          |  |_____________  
+                 ______          __________|________________
+q          _____|      |________|          |
 
+```
+ In this irrespective of clock if async set is high output is high.
 
+## async_set
+```
+module dff_asyncset (                                         
+input clk,input sync_reset,input d,                 
+output reg q);                                                 
+always @ (posedge clk)                     
+begin                                              
+if(sync_reset)                                      
+q <= 1'b1;                                         
+else                                               
+q <= d;                                            
+end                                                       
+endmodule       
 
-
-
-
-
-
-
+      |\                            
+      |  \                                
+D---->|I0  \                                                                          ___|____________
+      |     |                             async_reset _______________________________|   |   
+      |    Y|-----                                       __    __    __    __    __    __|   __    __   
+      |     |     |     ------            clk         __|  |__|  |__|  |__|  |__|  |__|  |__|  |__|  |_ 
+1'b0->|I1  /      |    |      |                            ______          ___________   |     _______
+      |  /|       |--->|      |           d          _____|      |________|           |__|____| 
+      |/  |        --->|>clk  |----> q                     ______          ___________
+          |            |      |           q          _____|      |________|           |_______________ 
+      Sync_reset       |      |     
+                        ------
+```
+Sync_reset waits for the clock and then only if reset is low output is same as input and if reset is high it wait for the positive edge of clk then the output goes low
 
