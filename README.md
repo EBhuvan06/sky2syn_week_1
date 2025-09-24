@@ -508,6 +508,26 @@ This tells what kind of technology we are going to use. In this we are using CMO
         tree_type : "balanced_tree"; \
    }
 
+## Lets check the different two input and gates
+
   ![Types of Gates](Week_1/various_types_of_gates.png) 
+
+  ```
+   cell ("sky130_fd_sc_hd__and2_0") {                                                        
+        leakage_power () {
+            value : 0.0021372000;                                                              
+            when : "!A&B";                                                    
+        }
+        leakage_power () {
+            value : 0.0018183000;                                                                     
+            when : "!A&!B";                                                   
+        }
+        leakage_power () {
+            value : 0.0015938000;                                                             
+            when : "A&B";                                                     
+        }
+        leakage_power () {
+            value : 0.0021392000;                                                              
+            when : "A&!B";       
 
 
