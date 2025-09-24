@@ -775,7 +775,7 @@ Synthesis Diagram
 
 similarly for syncset and reset it executes only for pos edge of clock if the reset is low else the output will be low irrespect of clock.
 </details>
-
+</details>
 <details>
 <summary>Day_3</summary>
 <details>
