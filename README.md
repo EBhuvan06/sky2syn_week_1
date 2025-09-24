@@ -706,7 +706,7 @@ GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
 ```
 GTKwave
 ![async set](Week_1/async_set.png)
-## async_set
+## sync_reset
 ```
 module dff_asyncset (                                         
 input clk,input sync_reset,input d,                 
