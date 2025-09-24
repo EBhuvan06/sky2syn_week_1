@@ -774,5 +774,112 @@ Synthesis Diagram
 ![synthesis sync](Week_1/syn_sync_reset.png)
 
 similarly for syncset and reset it executes only for pos edge of clock if the reset is low else the output will be low irrespect of clock.
+</details>
+
+<details>
+<summary>Day_3</summary>
+<details>
+<summary>Introduction to optimisation</summary>
+
+## Combinational logic optimisation
+
+Optimisation is bascially used to get best or most effective output. \
+Squeezing the logic to get the most optimised design in terms of area and power saving. Commonly used optimisation techniques are:  \
+1.Constant propagation using direct optimisation. \
+```
+            ------
+A -------->|       \          \------\                                           
+           |        |---------->\      \                                             |\
+B -------->|       /             \       \             Y = ((AB)+C)'                 |  \ 
+            ------                )       ) O----> Y   if A = 0             C------->|   )O--------> Y 
+           AND GATE              /       /             Y = ((0)+C)'                  |  /         
+C ----------------------------->/       /                                            |/
+                               /-------/
+                               NOR GATE                                          NOT GATE
+
+The big logic gate is compressed into a not gate 
+ 
+                 ___ Vdd                    
+                  |
+            ______|______                                                    
+         __|           __|                         
+A ----o||__    B ---o||__                         _____ Vdd  
+           |_____________|                          |
+                __|                               __|
+        C ---o||__                          ---o||__
+                  |                        |        |
+                  |----------- Y  =>  C ---|        |----- Y      
+           _______|_______                 |      __|          
+         __|             |                  ----||__      
+A -----||__              |                          |
+           |           __|                        __|__
+         __|   C ----||__                          GND  
+ B -----|__              |          
+           |_____________|              
+                __|__                        
+                 GND 
+                 
+The 6 MOS transistors is minemised to 2 MOS transistor
+ ```                
+2. Boolean logic optimisation using K-Map and Quine McKluskey.  
+```
+assign Y = a?(b?c:(c?a:0)):(!c)
+
+      |\                          |\  
+      |  \                        |  \       
+0---->|0   \      |\        C'--->|0   \                                           
+      |     |     |  \            |     |
+      |   Y0|---->|0   \          |    Y|----> Y = A'c'+A[BC+B'AC] 
+      |     |     |     |         |     |
+A---->|1   /      |   Y1|-------->|1   /
+      |  /|       |     |         |  /| 
+      |/  |   C-->|1   /          |/  |   
+          |       |  /|               |
+          C       |/  |               A
+                      |           
+                      B   
+ ```                     
+This is the logcal diagram for the assign but this is not optimised where we used complex circuits when we minimize the Y we get A'C'+AC which is basically a xnor gate output this how the Boolean optimisation is done
+```
+
+            
+            \ \------\                                           
+A ----------->\ \      \
+               \ \       \           
+                ) )       ) O----> Y = A'C'+AC  
+               / /       /                   
+C ---------->/ /       /
+            / /-------/
+            XNOR GATE              
+```
+such a complicated assign Y = a?(b?c:(c?a:0)):(!c) expression is simplified to a simple Y = A'C'+AC  boolean expression this what we call optimisation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
