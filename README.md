@@ -435,6 +435,8 @@ yosys> exit
 </details>
 <details>
 <summary>Day_2</summary>
+<details>
+<summary>About .lib</summary>
 
 ## What .lib contains
 
@@ -542,6 +544,9 @@ This tells what kind of technology we are going to use. In this we are using CMO
 | Delay                |   More delay      |   Medium delay   |   Large delay    |
  --------------------------------------------------------------------------------
 ```
+</details>
+<details>
+<summary>Hierarical and Flat</summary>
 
 ## Hierarical synthesis and flat synthesis
 
@@ -574,6 +579,9 @@ C ------------------------------/       /
 when we executes in yosys the show out put should be as shown above but we are getting the output as shown below so this what we call Hierarchy synthesis which does not show and and or gates it shows instants u1 and u2. This is because we are using CMOS it chose the NAND implementation which has a stacked NMOS but for NOR stacked PMOS is done so this stacking of PMOS is always bad so we include NAND.
 
 
+</details>
+<details>
+<summary>Flops</summary
 
 ## Why Flops
 ```
