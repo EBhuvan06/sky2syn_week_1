@@ -678,8 +678,7 @@ dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 #specifing the dff lib for maping instead of logic gates
  abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
-`
-``
+```
 Synthesis Diagram
 
 ## Asynchronous set
