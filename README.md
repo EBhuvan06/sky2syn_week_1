@@ -1000,13 +1000,51 @@ Third code Optimisation
 
 ## Practical on Sequential optimisation
 
+```
+                         _________   
+                        |         |                           __    __    __    __    __    __    __    __
+       1'b1 ----------->|D       Q|--------->     clk      __|  |__|  |__|  |__|  |__|  |__|  |__|  |__|  |_             
+                        |  D-FF   |                        ____________________________    |
+           ------------>|>CLK     |              Reset                                 |___|_________________
+                        |_________|                                                        |________________
+        Reset________________|                   q         ________________________________|
 
 
+module dff_constl(input clk, input reset, output reg q);
+always @(posedge clk, posedge reset)
+begin
+if (reset)
+q <= 1'b0;
+else
+q <= 1'b1;
+end
+endmodule
+```
+
+From the above code it is async_reset if reset is high then q is going to 0 else q is going to 1 but the q goes to 1 at the positive edge of the clock.From the above working most of the people expect there is NOT between q and reset but its not true. 
+Lets see output wave form
+
+```
+
+                         _________   
+                        |         |                           __    __    __    __    __    __    __    __
+       1'b1 ----------->|D       Q|--------->     clk      __|  |__|  |__|  |__|  |__|  |__|  |__|  |__|  |_             
+                        |  D-FF   |                        ____________________________    |
+           ------------>|>CLK     |              Reset                                 |___|_________________
+                        |_________|                        ________________________________|________________
+        Reset________________|                   q         
 
 
-
-
-
-
+module dff_const2(input clk, input reset, output reg q);
+always @(posedge clk, posedge reset)
+begin
+if (reset)
+q <= 1'b1;
+else
+q <= 1'b1;
+end
+endmodule
+```
+But for this code the q is going to be 1 every where as where reset is high we are assigning 1 to it so every where its going to be 1 irrespective of clk and reset.
 
 
