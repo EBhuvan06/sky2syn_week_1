@@ -1194,9 +1194,44 @@ so when we use the case 2 we are using all the 3bits for generating output so ev
 When we are writing the RTL code we validated the functionality of RTL code by testing it we gave some stimulus to the RTL design and check weather output is comming as per our specification or expectation this setup is called TEST BENCH. \
 Noow what we are going to do is we are going to run the test bench with the netlist as the design under the test. Originally when we ran the simulation RTL was the design under test and the testbench is injecting the stimulus into the desig ununder test and the design was generating the outputs which we are checking. \
 But in GLS we are going to run the test bench with Netlist as design under test. \
-The Netlist is logically same as the RTL code because what we wrote as RTL code or behaviour model of design that got converted into the standart cell gates and came out as Netlist. The inputs and the outputs what exsist in the RTL code and Netlist is same.\ 
+The Netlist is logically same as the RTL code because what we wrote as RTL code or behaviour model of design that got converted into the standart cell gates and came out as Netlist. The inputs and the outputs what exsist in the RTL code and Netlist are same.  
 So the netlist will seemlessly fit in the test bench. we are simply replacing RTL code with Netlist and going to run the simulation by invoking the simulator by invoking the simulator.
 
 WHY GLS? \
 Verifying the logical correctness of design after synthesis. \
-Ensuring the timing of the design is met. For this GLS need to be run with delay annotation
+Ensuring the timing of the design is met. When we want to run GLS for ensuring the timing is met we need to run it with delay annotation.
+
+## GLS using Iverilog
+```
+      Design-----------------|
+                             |
+      Gate level Models------|----->Iverilog Simulator---->.vcd file----->gtkwave---->Output Wave form
+                             |                              
+      Test Bench-------------|
+```
+Here Design is Netlist and netlis having std cells instanteated in it what is this std cells(and2 etc..) we have to tell it to the Iverilog which is given by gate level models and then flow is as shown above
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
