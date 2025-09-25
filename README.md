@@ -1051,8 +1051,6 @@ endmodule
         Reset________________|                   q         
 
 ```
-But for this code the q is going to be 1 every where as where reset is high we are assigning 1 to it so every where its going to be 1 irrespective of clk and reset.
-Lets see the output waveform. Graph_2 The out put synthesis is optimised into a single block because any instant of clock or reset the output is 1 so it is optimised to a single block optimisation
 
 But for this code the q is going to be 1 every where as where reset is high we are assigning 1 to it so every where its going to be 1 irrespective of clk and reset. \
 Lets see the output waveform.
@@ -1063,13 +1061,43 @@ The out put synthesis is optimised into a single block because any instant of cl
 ## dff_const3
 
 ```
+module dff_const3(input clk, input reset, output reg q);
+reg q1
+always @(posedge clk, posedge reset)
+begin
+if (reset)
+begin
+q <= 1'b1;
+q1 <= 1'b0;
+end
+else
+begin
+q1 <= 1'b1;
+q <= q1
+end
+endmodule
+
        Reset  __________________________________________
                          ____|____                  ____|____                             __    __    __    __    __    __    __    __
                         |    V    |                |    V    |                clk      __|  |__|  |__|  |__|  |__|  |__|  |__|  |__|  |_    
-       1'b1 ----------->|       Q1|--------------->|        Q|---------->              ____________________________ 
-                        |  FF-A   |                |  FF-B   |                Reset                                |___|_________________
-       CLK----|-------->|>        |      |-------->|>        |     
-              |         |_________|      |         |_________|                q
-              |__________________________|
-
+       1'b1 ----------->|       Q1|--------------->|        Q|---------->              ____________________________    |     |
+                        |  FF-A   |                |  FF-B   |                Reset                                |___|_____|___________
+       CLK----|-------->|>        |      |-------->|>        |                                                         |_____|___________
+              |         |_________|      |         |_________|                Q1       ________________________________|     |
+              |__________________________|                                             ________________________________|     |___________
+                                                                              Q                                        |_____|
 ```             
+Lets see that one part where the negative has come and lets see the reason
+
+```
+           __    __    __    __
+clk    |__|  |__|  |__|  |__|
+       _____    |     |
+reset       |___|_____|___________
+                |  ___|___________
+Q1     _________|_|   |   
+       _________|     |___________
+Q               |_____|
+```
+The small negativi at Q is because of there will be a small delay of Tcq at Q1 when itt is going from low to high due to reset which makes 0 at that instant so as Q = Q1 the Q also became 0 till the next positive clk pulse after that outpt Q is 1. \
+This is the reason the synthesis can not be optimised.
