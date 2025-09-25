@@ -1100,4 +1100,28 @@ Q1     _________|_|   |
 Q               |_____|
 ```
 The small negativi at Q is because of there will be a small delay of Tcq at Q1 when itt is going from low to high due to reset which makes 0 at that instant so as Q = Q1 the Q also became 0 till the next positive clk pulse after that outpt Q is 1. \
-This is the reason the synthesis can not be optimised.
+This is the reason the synthesis can not be optimised. \
+Output Wave
+![Graph_3](Week_1/seq_3.png)
+![NonOpt](Week_1/seq3_out.png)
+
+## dff_const 4&5
+ 
+ Code
+ ![Practice](Week_1/practice.png)
+ 
+ dff_const 4 output and optimised block
+ ![Const4](Week_1/const4.png)
+ ![Opt4](Week_1/const_opt4.png)
+
+ dff_const 5 output and optimised block
+ ![Const5](Week_1/const5.png)
+ ![Opt4](Week_1/const_opt5.png)
+
+
+
+
+
+
+
+
