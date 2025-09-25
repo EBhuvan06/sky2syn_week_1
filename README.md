@@ -1041,138 +1041,6 @@ else
 q <= 1'b1;
 end
 endmodule
-    README
-
-sky2syn_week_1
-
-Skywater to Synopsys
-Week_1
-Day_1
-
-Expected 1
-
-Expected
-
-code
-
-12345678910Graphical
-
-With_commentsWithout_comments
-Day_2
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Types of Gates
-
-
-
-
-
-
-
-async reset
-
-synthesis async reset
-
-async set
-
-synthesis async set
-
-sync
-
-synthesis sync
-
-Day_3
-Introduction to optimisation
-
-
-
-Combinational Optimisation
-
-
-code
-
-optimse_1
-
-optimse_2
-
-Practice code
-
-FlatOptimised
-
-FlatOptimised
-
-Optimised
-Sequential Optimisation
-Practical on Sequential optimisation
-dff_const1
-
-module dff_constl(input clk, input reset, output reg q);
-always @(posedge clk, posedge reset)
-begin
-if (reset)
-q <= 1'b0;
-else
-q <= 1'b1;
-end
-endmodule
-
-                         _________   
-                        |         |                           __    __    __    __    __    __    __    __
-       1'b1 ----------->|D       Q|--------->     clk      __|  |__|  |__|  |__|  |__|  |__|  |__|  |__|  |_             
-                        |  D-FF   |                        ____________________________    |
-           ------------>|>CLK     |              Reset                                 |___|_________________
-                        |_________|                                                        |________________
-        Reset________________|                   q         ________________________________|
-
-
-
-From the above code it is async_reset if reset is high then q is going to 0 else q is going to 1 but the q goes to 1 at the positive edge of the clock.From the above working most of the people expect there is NOT between q and reset but its not true.
-Lets see output wave form. Graph This synthesis can not be optimised because the output is high when the reset is low and q is going to high only when there is a possitive edge of clk. so this cannot be optimised if the reset is at possedge of clk and out put is at possege of clk it would be possible to optimised with an inverter. optimisation
-dff_const2
-
-module dff_const2(input clk, input reset, output reg q);
-always @(posedge clk, posedge reset)
-begin
-if (reset)
-q <= 1'b1;
-else
-q <= 1'b1;
-end
-endmodule
-
-                         _________   
-                        |         |                           __    __    __    __    __    __    __    __
-       1'b1 ----------->|D       Q|--------->     clk      __|  |__|  |__|  |__|  |__|  |__|  |__|  |__|  |_             
-                        |  D-FF   |                        ____________________________    |
-           ------------>|>CLK     |              Reset                                 |___|_________________
-                        |_________|                        ________________________________|________________
-        Reset________________|                   q         
-
-But for this code the q is going to be 1 every where as where reset is high we are assigning 1 to it so every where its going to be 1 irrespective of clk and reset.
-Lets see the output waveform. Graph_2 The out put synthesis is optimised into a single block because any instant of clock or reset the output is 1 so it is optimised to a single block optimisation
-dff_const3
-
-       Reset  __________________________________________
-                         ____|____                  ____|____              
-                        |    V    |                |    V    |  
-       1'b1 ----------->|       Q1|--------------->|        Q|---------->
-                        |  FF-A   |                |  FF-B   |      
-       CLK----|-------->|>        |      |-------->|>        |     
-              |         |_________|      |         |_________|     
-              |__________________________|
-
 
                          _________   
                         |         |                           __    __    __    __    __    __    __    __
@@ -1183,6 +1051,9 @@ dff_const3
         Reset________________|                   q         
 
 ```
+But for this code the q is going to be 1 every where as where reset is high we are assigning 1 to it so every where its going to be 1 irrespective of clk and reset.
+Lets see the output waveform. Graph_2 The out put synthesis is optimised into a single block because any instant of clock or reset the output is 1 so it is optimised to a single block optimisation
+
 But for this code the q is going to be 1 every where as where reset is high we are assigning 1 to it so every where its going to be 1 irrespective of clk and reset. \
 Lets see the output waveform.
 ![Graph_2](Week_1/const_2.png)
