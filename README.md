@@ -217,7 +217,7 @@ Read_verilog command to read the design and read_liberty command to read .lib fi
 ## Verify the synthesis
 
 The out put of the Iverilog basic flow which has Design code otput(RTL simulation) should be same as the netlist code output(synthesized output).
-```
+```Courses
    NETLIST-------
                  |
                  |----->Iverilog Simulator---->.vcd file----->gtkwave---->Output Wave form
@@ -955,8 +955,8 @@ Now we have two sets of A each driving a seperate Flops if there is a slack in A
  
   </details>
   <details>
-<summary>How to do optimisation</summary>
-## Practical on optimisation
+<summary>Combinational Optimisation</summary>
+## Practical on combinational optimisation
 
 steps for optimisation
 ```
@@ -987,14 +987,16 @@ First code Output both flat and optimised synthesis outputs
 
 Second code Output both flat and optimised synthesis outputs
 
-![Flat](Week_1/multi_flat.png)
+![Flat](Week_1/multi_flat.png)Courses
 ![Optimised](Week_1/multi_opt.png)
 
 Third code Optimisation
 ![Optimised](Week_1/opt_4.png)
 
-
-
+  </details>
+  <details>
+<summary>Sequential Optimisation</summary>
+## Practical on Sequential optimisation
 
 
 
