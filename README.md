@@ -1230,8 +1230,8 @@ C ------------------------------/       /
    or u_or (.a(io), .b(c), .Y(Y)); \
 we dont know what is and or etc so we need tell what is this meaning of and or etc this information is present in Gate level verilog model \
 Gate level verilog model can be 
-  1. Timing aware--->we validate functionality + Timming 
-  2. Functional----->if just functional we can validate the functionality
+    1. Timing aware--->we validate functionality + Timming 
+    2. Functional----->if just functional we can validate the functionality
 
 As Netlist and RTL are same but we perform functionality verification because ther eare chances of simulation and synthesis mismatch.
 
