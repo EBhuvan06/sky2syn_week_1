@@ -869,7 +869,7 @@ An example of sequential constant propagation is DFF with asynchronous reset whe
 ```
 The above block can be optimised because there is only single output as q is giving single constant what ever the condition  
 ```
-                        _________   
+                         _________   
                         |         |          ------  
           | ----------->|D       Q|---------|       \               SET-posedge Q = 1 and ClK is posedge 
     GND __|__           |  D-FF   |         |        |O--------Y    SET-negedge Q = 0 irrespective of D
@@ -886,20 +886,69 @@ q           _____________________________|__|
 ```
 But the above one can not be optimised due to q is giving different output for differedt condition which means there is togle of output so we can not determine the output simply it is depending on both set and clk it cannot be optimised and it remain as it is .
  
-2. Advanced [Not covered in this lab] using state optimisation, retiming and sequential Logic cloning
+2. Advanced [Not covered in this lab] using
+    1. state optimisation----------> Optimisation pf unused states
+    2.  retiming------------------->used to improve the performance of the circuit
+```  
+                         _________                  _________               _________
+                        |         |   comb ckt     |         |  comb ckt   |         |
+       Logic----------->|        Q|------O-------->|        Q|-----O------>|        Q|-------->
+                        |  FF-A   |     5ns        |  FF-B   |    2ns      |  FF-C   | 
+       CLK----|-------->|>        |      |-------->|>        |     |------>|>        | 
+              |         |_________|      |         |_________|     |       |_________|
+              |__________________________|_________________________| 
+                                     
+    We can effectively clock at only 200MHz as at 5ns it is 200MHz which is minimam of 500MHz at 2ns and 200MHz at 5ns. Now we are going to split the part comb circuit and increasing effectiveness of clock.
 
+                         _________                  _________               _________
+                        |         |   comb ckt     |         |  comb ckt   |         |
+       Logic----------->|        Q|------O-------->|        Q|-----O------>|        Q|-------->
+                        |  FF-A   |     4ns        |  FF-B   |    3ns      |  FF-C   | 
+       CLK----|-------->|>        |      |-------->|>        |     |------>|>        | 
+              |         |_________|      |         |_________|     |       |_________|
+              |__________________________|_________________________| 
+                                     
 
+Now we made 5 to 4ns and 2 to 3ns by spliting it this helps in increasing effectiveness of clock from 200MHz to 250MHz. This how the performance can be imporved.
 
+```
 
+    3.  sequential Logic cloning---> Physical aware synthesis 
+```
+                         _________                       _________
+                        |         |                     |         |    
+       Logic----------->|        Q|-----------|-------->|        Q|-------->
+                        |  FF-A   |           |         |  FF-B   | 
+            ----------->|>CLK     |           | ------->|>CLK     | 
+                        |_________|           |         |_________|  
+                                              | 
+                                              |          _________   
+        __________________                    |         |         |         
+       |                  |                   |-------->|        Q|-------->
+       |        -----B    |                             |  FF-C   | 
+       | A-----|          |                     ------->|>CLK     | 
+       |        -----C    |                             |_________| 
+       |__________________| 
+```
+From the floor plan there will a large routing delay from A to B and a large routing delay from A to C and assuming large possitive slack available at the FF-A so instead of having A as one FF we gona have A as two floaps and connecting it to the different flops
 
-
-
-
-
-
-
-
-
+```
+                         _________                       _________           _________
+                        |         |                     |         |         |         |
+       Logic----------->|        Q|-----------|-------->|        Q|-------->|        Q|-------->
+                        |  FF-A1  |           |         |  FF-A   |         |  FF-B   | 
+            ----------->|>CLK     |           | ------->|>CLK     | ------->|>CLK     | 
+                        |_________|           |         |_________|         |_________|
+                                              | 
+                                              |          _________           _________
+        __________________                    |         |         |         |         |
+       |          A       |                   |-------->|        Q|-------->|        Q|-------->
+       |        --|---B   |                             |  FF-A   |         |  FF-C   |
+       | A1----|  A       |                     ------->|>CLK     | ------->|>CLK     | 
+       |        --|---C   |                             |_________|         |_________|
+       |__________________| 
+```
+Now we have two sets of A each driving a seperate Flops if there is a slack in A there would be no problem
 
 
 
