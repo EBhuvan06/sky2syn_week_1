@@ -1123,6 +1123,46 @@ Output Wave
   <details>
 <summary>Sequential Optimisation unused output</summary>
 
+## understanding un used output 
+```
+                                                    ----------- 
+                                                   |  Binary   |
+           reset                                   |Q2 |Q1 |Q0 |
+             |                                     |---|---|---|
+         --------                                  | 0 | 0 | 0 |-- 
+        |        |            |-----[2]--| un      | 0 | 0 | 1 |  |
+        |3-bit UP|------/-----|-----[1]--| used    | 0 | 1 | 0 |  |
+        | Counter| count[2:0] |-----[0]--->Q       | 0 | 1 | 1 |  |
+        |        |                                 | 1 | 0 | 0 |  |--->The Q0 is toggling on every clk cycle
+         --------                                  | 1 | 0 | 1 |  |    and Q1 and Q2 are unused in code
+             |                                     | 1 | 1 | 0 |  |    [because of funcnality of code]
+            clk                                    | 1 | 1 | 1 |  |
+                                                   | ......... |  |
+                                                   | ......... |--                 
+                                                    -----------
+
+module counter_opt (input clk, input reset, output q)
+reg [2:0] count;
+assign q = count[0]; 
+#we are assigining only q0 for the output
+always @(posedge clk, posedge reset)
+begin
+if(reset)
+count <= 3'b000;
+else
+count <= count + 1;
+end endmodule
+```
+Example \
+case 1                     case 2 \
+q = count[0]       q = (count[2:0] == 3'b100); \
+
+In case 1 iam least bothered about q1 and q2 as we assigned q0 but in case 2 we are considering both q1 and q2 as it is assigning 3bits of data so all areused in case 2 but not in case 1.
+
+When synthesised the Dff q out is connected to a inverter and connected to input D as we are using only one bit and it is toggling which is connected to the input. So the unused inputs are optimised because they are not having direct connection with primary outputs. So any login which is not resulting in direct connection with primary outputs then they are optimised
+
+
+
 
 
 
