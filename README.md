@@ -974,6 +974,30 @@ optimisation_1
 optimisation_2
 ![optimse_2](Week_1/Optimisation_2.png)
 
+## Few practice solutions
+
+Codes
+
+![Practice code](Week_1/practice_code.png)
+
+First code Output both flat and optimised synthesis outputs
+
+![Flat](Week_1/before_opt.png)
+![Optimised](Week_1/after_opt.png)
+
+Second code Output both flat and optimised synthesis outputs
+
+![Flat](Week_1/multi_flat.png)
+![Optimised](Week_1/multi_opt.png)
+
+Third code Optimisation
+![Optimised](Week_1/opt_4.png)
+
+
+
+
+
+
 
 
 
