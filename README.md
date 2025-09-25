@@ -1235,18 +1235,56 @@ Gate level verilog model can be
 
 As Netlist and RTL are same but we perform functionality verification because ther eare chances of simulation and synthesis mismatch.
 
+## Synthesis Simulation Mismatch
 
+change in input then change in out put if no change simulator does not evaluate the input
+1. Missing sensitivity List
+ ```  
+   module mux (
+   input i0, input i1,                      |\
+   input sel;                               |  \
+   output reg y);                   io ---->|    \
+   always @(sel)-->This is blunder          |     |
+   begin                                    |     |---> Y
+   if(sel)                                  |     |
+   y = i1;                          i1 ---->|    /
+   else                                     |  /| 
+   y = i0;                                  |/  |
+   end                                          |
+   endmodule                                   sel
+   
 
+               ___________
+sel __________|           |____________
+       __    __         _____
+io  __|  |__|  |_______|     |_________
+           ___       ___          __
+i1  ______|   |_____|   |________|  |___
+```
 
+The always block is only evaluating when select is changing if select is not changing the always block is not evaluated irrespective of change in i0 or i1. So when there is change in input output  Y is not getting evaluated only output is evaluated when change in select line only so this is like latch. But for us thw output should be evaluated when there is change in inputs also.
+```
+   module mux (
+   input i0, input i1,                            |\
+   input sel;                                     |  \
+   output reg y);                         io ---->|    \
+ always @(*)-->Now every change is evaluated      |     |
+   begin                                          |     |---> Y
+   if(sel)                                        |     |
+   y = i1;                                i1 ---->|    /
+   else                                           |  /| 
+   y = i0;                                        |/  |
+   end                                                |
+   endmodule                                         sel
+   
 
-
-
-
-
-
-
-
-
-
+               ___________
+sel __________|           |____________
+       __    __         _____
+io  __|  |__|  |_______|     |_________
+           ___       ___          __
+i1  ______|   |_____|   |________|  |___
+```
+By changing the always block now always will be evaluated when any change in signal is occured. So now change in i0 and i1 also get evaluated.
 
 
