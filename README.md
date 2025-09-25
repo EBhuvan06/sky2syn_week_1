@@ -1187,5 +1187,6 @@ so when we use the case 2 we are using all the 3bits for generating output so ev
 <details>
 <summary>Day_4</summary>
 <details>
-<summary>GLS</summary>
+<summary>GLS & Synthesis simulation mismatches</summary>
 
+## GLS(Gate Level Simulation) 
