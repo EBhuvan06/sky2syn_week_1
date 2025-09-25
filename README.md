@@ -953,10 +953,22 @@ From the floor plan there will a large routing delay from A to B and a large rou
 ```
 Now we have two sets of A each driving a seperate Flops if there is a slack in A there would be no problem
 
+## Practical on optimisation
+
+steps for optimisation
+```
+#invoke the yosys and provide .lib file, verilog file, after giving this for optimisation run the below command
+opt_clean -purge
+# now provide abc file and and show gives the optimised output
+```
+This is the code for optimisation  
+
+![code](Week_1/code.png)
 
 
+![optimse_1](Week_1/Optimisation_1.png)
 
-
+![optimse_2](Week_1/Optimisation_2.png)
 
 
 
