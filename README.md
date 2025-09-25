@@ -899,7 +899,9 @@ But the above one can not be optimised due to q is giving different output for d
               |__________________________|_________________________| 
 
 ```                                   
-    We can effectively clock at only 200MHz as at 5ns it is 200MHz which is minimam of 500MHz at 2ns and 200MHz at 5ns. Now we are going to split the part comb circuit and increasing effectiveness of clock.
+
+We can effectively clock at only 200MHz as at 5ns it is 200MHz which is minimam of 500MHz at 2ns and 200MHz at 5ns. Now we are going to split the part comb circuit and increasing effectiveness of clock.
+
 ```
                          _________                  _________               _________
                         |         |   comb ckt     |         |  comb ckt   |         |
