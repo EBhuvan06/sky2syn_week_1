@@ -1209,16 +1209,30 @@ Ensuring the timing of the design is met. When we want to run GLS for ensuring t
                              |                              
       Test Bench-------------|
 ```
-Here Design is Netlist and netlis having std cells instanteated in it what is this std cells(and2 etc..) we have to tell it to the Iverilog which is given by gate level models and then flow is as shown above
+Here Design is Netlist and netlis having std cells instanteated in it what is this std cells(and2 etc..) we have to tell it to the Iverilog which is given by gate level models and then flow is as shown above. \
+IF the Gate level Models are delay annotated then we can use GLS for timminng validation. \
+The Gate level Models should be timming aware but We are using basic GLS which are not timming aware.
 
 
+            ------
+A ---------|       \          \------\                    
+           |        |-----------\      \
+B ---------|       /             \       \__________ Y
+            ------               /       /
+C ------------------------------/       /
+                               /-------/
+                            
+1. In RTL we used to write \
+   assign Y = (a & b) | c; \
+2. But in netlist  \ 
+   and u_and (.a(a), .b(b), .Y(io)); \
+   or u_or (.a(io), .b(c), .Y(Y)); \
+we dont know what is and or etc so we need tell what is this meaning of and or etc this information is present in Gate level verilog model \
+Gate level verilog model can be \
+1. Timing aware--->we validate functionality + Timming \
+2. Functional----->if just functional we can validate the functionality
 
-
-
-
-
-
-
+As Netlist and RTL are same but we perform functionality verification because ther eare chances of simulation and synthesis mismatch.
 
 
 
