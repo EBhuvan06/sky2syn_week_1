@@ -1155,7 +1155,7 @@ end endmodule
 ```
 Example \
 case 1---q = count[0]  \
-case 2---q = (count[2:0] == 3'b100); \
+case 2---q = (count[2:0] == 3'b100); 
 
 In case 1 iam least bothered about q1 and q2 as we assigned q0 but in case 2 we are considering both q1 and q2 as it is assigning 3bits of data so all areused in case 2 but not in case 1.
 
