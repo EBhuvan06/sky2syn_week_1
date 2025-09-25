@@ -1021,9 +1021,10 @@ end
 endmodule
 ```
 
-From the above code it is async_reset if reset is high then q is going to 0 else q is going to 1 but the q goes to 1 at the positive edge of the clock.From the above working most of the people expect there is NOT between q and reset but its not true. 
-Lets see output wave form
+From the above code it is async_reset if reset is high then q is going to 0 else q is going to 1 but the q goes to 1 at the positive edge of the clock.From the above working most of the people expect there is NOT between q and reset but its not true. \
+Lets see output wave form.
 ![Graph](Week_1/const_1.png)
+This synthesis can not be optimised because the output is high when the reset is low and q is going to high only when there is a possitive edge of clk. so this cannot be optimised if the reset is at possedge of clk and out put is at possege of clk it would be possible to optimised with an inverter.
 ![optimisation](Week_1/const1_out.png)
 ```
 
@@ -1046,7 +1047,9 @@ q <= 1'b1;
 end
 endmodule
 ```
-But for this code the q is going to be 1 every where as where reset is high we are assigning 1 to it so every where its going to be 1 irrespective of clk and reset.
+But for this code the q is going to be 1 every where as where reset is high we are assigning 1 to it so every where its going to be 1 irrespective of clk and reset. \
+Lets see the output waveform.
 ![Graph_2](Week_1/const_2.png)
+The out put synthesis is optimised into a single block because any instant of clock or reset the output is 1 so it is optimised to a single block
 ![optimisation](Week_1/const2_out.png)
 
