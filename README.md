@@ -1154,15 +1154,28 @@ count <= count + 1;
 end endmodule
 ```
 Example \
-case 1---q = count[0]  \
-case 2---q = (count[2:0] == 3'b100); 
+case 1---q = count[0]  
 
 In case 1 iam least bothered about q1 and q2 as we assigned q0 but in case 2 we are considering both q1 and q2 as it is assigning 3bits of data so all areused in case 2 but not in case 1.
 
 When synthesised the Dff q out is connected to a inverter and connected to input D as we are using only one bit and it is toggling which is connected to the input. So the unused inputs are optimised because they are not having direct connection with primary outputs. So any login which is not resulting in direct connection with primary outputs then they are optimised
 
+case 2---q = (count[2:0] == 3'b100); 
+```
 
-
+module counter_opt (input clk, input reset, output q)
+reg [2:0] count;
+assign q = (count[2:0] == 3'b100); 
+#we are assigining only q0 for the output
+always @(posedge clk, posedge reset)
+begin
+if(reset)
+count <= 3'b000;
+else
+count <= count + 1;
+end endmodule
+```
+so when we use the case 2 we are using all the 3bits for generating output so every bit used so no optimisation is done like case 1
 
 
 
