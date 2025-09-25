@@ -1182,5 +1182,10 @@ so when we use the case 2 we are using all the 3bits for generating output so ev
 
  ![used](Week_1/used_out.png)
 
-
+</details>
+</details>
+<details>
+<summary>Day_4</summary>
+<details>
+<summary>GLS</summary>
 
