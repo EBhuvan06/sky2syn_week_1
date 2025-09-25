@@ -1119,6 +1119,9 @@ Output Wave
  ![Opt4](Week_1/const_opt5.png)
 
 
+</details>
+  <details>
+<summary>Sequential Optimisation unused output</summary>
 
 
 
