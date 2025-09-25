@@ -978,7 +978,7 @@ optimisation_2
 
 Codes
 
-![Practice code](Week_1/practice_code.png)
+![Practice code](Week_1/practice_codes.png)
 
 First code Output both flat and optimised synthesis outputs
 
