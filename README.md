@@ -956,6 +956,7 @@ Now we have two sets of A each driving a seperate Flops if there is a slack in A
   </details>
   <details>
 <summary>Combinational Optimisation</summary>
+
 ## Practical on combinational optimisation
 
 steps for optimisation
@@ -996,6 +997,7 @@ Third code Optimisation
   </details>
   <details>
 <summary>Sequential Optimisation</summary>
+
 ## Practical on Sequential optimisation
 
 
