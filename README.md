@@ -897,9 +897,10 @@ But the above one can not be optimised due to q is giving different output for d
        CLK----|-------->|>        |      |-------->|>        |     |------>|>        | 
               |         |_________|      |         |_________|     |       |_________|
               |__________________________|_________________________| 
-                                     
-    We can effectively clock at only 200MHz as at 5ns it is 200MHz which is minimam of 500MHz at 2ns and 200MHz at 5ns. Now we are going to split the part comb circuit and increasing effectiveness of clock.
 
+```                                   
+    We can effectively clock at only 200MHz as at 5ns it is 200MHz which is minimam of 500MHz at 2ns and 200MHz at 5ns. Now we are going to split the part comb circuit and increasing effectiveness of clock.
+```
                          _________                  _________               _________
                         |         |   comb ckt     |         |  comb ckt   |         |
        Logic----------->|        Q|------O-------->|        Q|-----O------>|        Q|-------->
@@ -908,10 +909,10 @@ But the above one can not be optimised due to q is giving different output for d
               |         |_________|      |         |_________|     |       |_________|
               |__________________________|_________________________| 
                                      
-
+```
 Now we made 5 to 4ns and 2 to 3ns by spliting it this helps in increasing effectiveness of clock from 200MHz to 250MHz. This how the performance can be imporved.
 
-```
+
 
     3.  sequential Logic cloning---> Physical aware synthesis 
 ```
