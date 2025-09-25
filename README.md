@@ -1187,7 +1187,7 @@ so when we use the case 2 we are using all the 3bits for generating output so ev
 <details>
 <summary>Day_4</summary>
 <details>
-<summary>GLS</summary>
+<summary>GLS & Synthesis Simulation Mismatch</summary>
 
 ## GLS(Gate Level Simulation) 
 
@@ -1235,10 +1235,7 @@ Gate level verilog model can be
 
 As Netlist and RTL are same but we perform functionality verification because ther eare chances of simulation and synthesis mismatch.
 
-</details>
-<details>
-<summary>Synthesis simulation mismatches</summary>
-## Types of Synthesis Simulation Mismatch
+## Synthesis Simulation Mismatch
 
 change in input then change in out put if no change simulator does not evaluate the input
 1. Missing sensitivity List
