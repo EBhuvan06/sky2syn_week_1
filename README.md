@@ -1195,7 +1195,6 @@ When we are writing the RTL code we validated the functionality of RTL code by t
 Noow what we are going to do is we are going to run the test bench with the netlist as the design under the test. Originally when we ran the simulation RTL was the design under test and the testbench is injecting the stimulus into the desig ununder test and the design was generating the outputs which we are checking. \
 But in GLS we are going to run the test bench with Netlist as design under test. \
 The Netlist is logically same as the RTL code because what we wrote as RTL code or behaviour model of design that got converted into the standart cell gates and came out as Netlist. The inputs and the outputs what exsist in the RTL code and Netlist are same. 
-
 So the netlist will seemlessly fit in the test bench. we are simply replacing RTL code with Netlist and going to run the simulation by invoking the simulator by invoking the simulator.
 
 WHY GLS? \
