@@ -1212,7 +1212,7 @@ Ensuring the timing of the design is met. When we want to run GLS for ensuring t
 Here Design is Netlist and netlis having std cells instanteated in it what is this std cells(and2 etc..) we have to tell it to the Iverilog which is given by gate level models and then flow is as shown above. \
 IF the Gate level Models are delay annotated then we can use GLS for timminng validation. \
 The Gate level Models should be timming aware but We are using basic GLS which are not timming aware.
-
+```
 
             ------
 A ---------|       \          \------\                    
@@ -1221,7 +1221,8 @@ B ---------|       /             \       \__________ Y
             ------               /       /
 C ------------------------------/       /
                                /-------/
-                            
+
+```
 1. In RTL we used to write \
    assign Y = (a & b) | c; \
 2. But in netlist  \ 
