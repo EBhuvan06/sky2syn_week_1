@@ -965,7 +965,6 @@ opt_clean -purge
 # now provide abc file and and show gives the optimised output
 ```
 This is the code for optimisation  
-
 ![code](Week_1/code.png)
  
  From code_1 the mux is converted into a simple AND gate and for code_2 it is optimised into a simple OR gate. 
