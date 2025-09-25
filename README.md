@@ -952,7 +952,10 @@ From the floor plan there will a large routing delay from A to B and a large rou
        |__________________| 
 ```
 Now we have two sets of A each driving a seperate Flops if there is a slack in A there would be no problem
-
+ 
+  </details>
+  <details>
+<summary>How to do optimisation</summary>
 ## Practical on optimisation
 
 steps for optimisation
@@ -964,10 +967,12 @@ opt_clean -purge
 This is the code for optimisation  
 
 ![code](Week_1/code.png)
-
-
+ 
+ From code_1 the mux is converted into a simple AND gate and for code_2 it is optimised into a simple OR gate. 
+optimisation_1
 ![optimse_1](Week_1/Optimisation_1.png)
 
+optimisation_2
 ![optimse_2](Week_1/Optimisation_2.png)
 
 
