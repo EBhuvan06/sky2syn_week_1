@@ -1023,7 +1023,8 @@ endmodule
 
 From the above code it is async_reset if reset is high then q is going to 0 else q is going to 1 but the q goes to 1 at the positive edge of the clock.From the above working most of the people expect there is NOT between q and reset but its not true. 
 Lets see output wave form
-
+![Graph](Week_1/const_1.png)
+![optimisation](Week_1/const1_out.png)
 ```
 
                          _________   
@@ -1046,5 +1047,6 @@ end
 endmodule
 ```
 But for this code the q is going to be 1 every where as where reset is high we are assigning 1 to it so every where its going to be 1 irrespective of clk and reset.
-
+![Graph_2](Week_1/const_2.png)
+![optimisation](Week_1/const2_out.png)
 
