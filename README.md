@@ -1328,8 +1328,9 @@ q = q0;  -----> First q0 is assigined to q first
 q0 = d;  -----> Next d is assigined to q0 next this is how the bloking works step by step
 end
 endmodule
-
-
+```
+Here 2 storages are done.
+```
 module code (input clk, input reset,
 input d;
 output reg q);
@@ -1347,21 +1348,51 @@ q0 = d;  -----> First d is assigined to q0 first
 q = q0;  -----> Next q is assigined to q next this is how the bloking works step by step
 end
 endmodule
+```
+As q0 = d so the data of d is stored to q0 next q = q0 which means data of q0 is stored to q simply it is q = d as q0 is assigned before q is assigned so it makes a single flip flop which does not reach the expected output
 
-As
+If we use nonblocking the oder does not matters it can be in any format
+```
+q0 <= d;     q <= q0;
+q <= q0;     q0 <= d; 
+```
+They both are same they produce 2bit shifter only. \
+So moral use non blocking for for writing sequential circuits. 
 
+Aim to create circuit like below
+```            
+            \------\                                           
+A ----------->\      \               
+               \       \      q0     ------ 
+                )       ) --------->|       \
+               /       /            |        |----->Y
+B ---------->/        /       C---->|       /
+            /-------/                ------
+             OR GATE                 
 
+module code (input a,b,c
+output reg y);
+reg q0;
+always @(*)
+begin
+y = q0 & c;----> as q0 is not assigned before so it takes previous value of q0 like FF but when synthesised FF is not given
+q0 = a | b;----> now q0 is updated with or logic of a and b so q0 can not be used before
+end
+endmodule
 
+module code (input a,b,c
+output reg y);
+reg q0;
+always @(*)
+begin
+q0 = a | b;---> qo is computed first which as or logic 
+y = q0 & c;---> now q0 uses new value of q0 as it is synthesised first
+end
+endmodule
 
-
-
-
-
-
-
-
-
-
+```
+Both gives same circuit but for first old value of q0 is used but for second latest value of q0 is used. \
+To avoid this type of issues run GLS on netlist to check the bhevaour of the cicuit and match with expected output as no mismatches.
 
 
 
