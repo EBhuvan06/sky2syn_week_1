@@ -1300,7 +1300,7 @@ By changing the always block now always will be evaluated when any change in sig
 
 Aim is to create 2bit shift register
 
-
+```
        Reset  __________________________________________
                          ____|____                  ____|____                           
                         |    V    |                |    V    |                
