@@ -1287,4 +1287,89 @@ i1  ______|   |_____|   |________|  |___
 ```
 By changing the always block now always will be evaluated when any change in signal is occured. So now change in i0 and i1 also get evaluated.
 
+2. Blocking and Non_Blocking statements in verilog
+
+   Blocking and Non blocking can only be used in always block
+
+   If = is used it is Blocking statement
+   It is executes the statements in the order it is written. So the first statement is evaluated before the second statement. Here bhevaour is like C programm.
+
+   If <= is used it is Non Blocking
+   It executes all the RHS when always block is entered and assigned to LHS. Oder does not matter as parallel evaluation is done as they execute RHS first.
+
+
+Aim is to create 2bit shift register
+
+
+       Reset  __________________________________________
+                         ____|____                  ____|____                           
+                        |    V    |                |    V    |                
+          D ----------->|       Q1|--------------->|        Q|---------->    D should go to q0 next q0 to q
+                        |  FF-A   |                |  FF-B   |               
+       CLK----|-------->|>        |      |-------->|>        |               
+              |         |_________|      |         |_________|               
+              |__________________________|       
+
+
+module code (input clk, input reset,
+input d;
+output reg q);
+reg q0;
+always @(posedge clk, posedge reset)                    Reset  __________________________________________
+begin                                                                     ____|____                  ____|____ 
+if (reset)                                                               |    V    |       q0       |    V    |   q 
+begin                                                      D ----------->|       Q0|--------------->|        Q|----------> 
+q0 = 1'b0;                                                               |  FF-A   |                |  FF-B   |               
+q = 1'b0;                                               CLK----|-------->|>        |      |-------->|>        |               
+end                                                            |         |_________|      |         |_________|         
+else                                                           |__________________________|       
+begin
+q = q0;  -----> First q0 is assigined to q first 
+q0 = d;  -----> Next d is assigined to q0 next this is how the bloking works step by step
+end
+endmodule
+
+
+module code (input clk, input reset,
+input d;
+output reg q);
+reg q0;
+always @(posedge clk, posedge reset)                    Reset  _______________
+begin                                                                     ____|____     
+if (reset)                                                               |    V    |    
+begin                                                      D ----------->|       Q0|------->Q 
+q0 = 1'b0;                                                               |  FF-A   |                   
+q = 1'b0;                                               CLK------------->|>        |                   
+end                                                                      |_________|           
+else                                                                  
+begin
+q0 = d;  -----> First d is assigined to q0 first 
+q = q0;  -----> Next q is assigined to q next this is how the bloking works step by step
+end
+endmodule
+
+As
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
