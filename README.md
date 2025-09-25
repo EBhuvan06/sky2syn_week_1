@@ -1160,6 +1160,9 @@ In case 1 iam least bothered about q1 and q2 as we assigned q0 but in case 2 we 
 
 When synthesised the Dff q out is connected to a inverter and connected to input D as we are using only one bit and it is toggling which is connected to the input. So the unused inputs are optimised because they are not having direct connection with primary outputs. So any login which is not resulting in direct connection with primary outputs then they are optimised
 
+ ![unused](Week_1/unused_out.png)
+ 
+ 
 case 2---q = (count[2:0] == 3'b100); 
 ```
 
@@ -1177,7 +1180,7 @@ end endmodule
 ```
 so when we use the case 2 we are using all the 3bits for generating output so every bit used so no optimisation is done like case 1
 
-
+ ![used](Week_1/used_out.png)
 
 
 
