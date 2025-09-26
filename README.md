@@ -1471,6 +1471,7 @@ gtkwave tb_bad_mux.vcd
 We can se that its giving the exact output of mux this is what we call simulation miss match.
  ![BAD_MUX](Week_1/bad_gls.png)
 
+## Example of blocking statement
 Lets see the another examle of blocking statement synthesis and simulation mismatch which we disscused before
 ```
 Aim
