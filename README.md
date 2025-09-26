@@ -1835,8 +1835,7 @@ code
 ```
 module incomp if2 (input i0, input i1, input i2, input [1:0], output reg y);         |\  
 always @ (*)                                                                         |  \                 
-begin                                                                         i0---->|0   \                                                 
-case(sel)                                                                     i1---->|1    |       
+begin                                                                         i0---->|0   \                                case(sel)                                                                     i1---->|1    |       
 2'b00 : y = i0;                                                                 |--->|2   Y|---->Y
 2'b01 : y = i1;                                                            i2---|--->|     |    
 default : y =i2;                                                                |--->|3   /         
