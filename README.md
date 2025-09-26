@@ -1441,7 +1441,7 @@ gtkwave tb_ternary_operator_mux.vcd
 From the image we can say that it is a GLS simulation because for GLS under tb_ternary_operator_mux.v there will be uut undert that there are gate level instants but for RTL under tb_ternary_operator_mux.v this there will be a uut under that there will nothing by this we can says its a RTL simulation.
 
 ## synthesis and simulation mismatch 
-Lets take teh code
+Lets take the code
 ```
 module bad_mux (input i0 , input i1 , input sel , output reg y);
 always @ (sel)
@@ -1453,14 +1453,15 @@ begin
 end
 endmodule
 ```
-In the above code as we can see the always block executes only when selction line has a change if there is change in the inputs or not this so this is simulation errorr.
-lets see the simulation output of the above code. 
+In the above code as we can see the always block executes only when selction line has a change if there is change in the inputs or not. so this is simulation errorr. \
+Lets see the simulation output of the above code. 
 
  ![Simulation Mismatch](Week_1/bad_mux.png)
  
 As we can see that when there is change in the input lines but there is no chnage in output line this is because the always block is executed only when selction is change this is the simulation error. So when select line is high it takes starting stage of i1 and give as output but when selection line is low it takes starting stage of i0 and gives as output. \
 The working is simply like a latch but when synthesised it doesnot give the latch but gives only mux this is synthesis mismatch
  ![Synthesis Mismatch](Week_1/bad_syn.png)
+ 
 But when runned the GLS using the below commands
 ```
 iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_mux_net.v tb_bad_mux.v
