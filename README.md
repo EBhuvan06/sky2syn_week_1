@@ -1428,6 +1428,6 @@ gtkwave tb_ternary_operator_mux.vcd
 # observe the output put wave for 
 
 
-From the image we can say that it is a GLS simulation because for GLS under tb_ternary_operator_mux.v this there will the gate level instants but for RTL under tb_ternary_operator_mux.v this there will be a uut whic says its a RTL simulation.
+From the image we can say that it is a GLS simulation because for GLS under tb_ternary_operator_mux.v there will be uut undert that there are gate level instants but for RTL under tb_ternary_operator_mux.v this there will be a uut under that there will nothing by this we can says its a RTL simulation.
 
 
