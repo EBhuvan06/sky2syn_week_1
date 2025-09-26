@@ -1541,8 +1541,9 @@ NOTE:- Dont using blocking assigment prefer non blockin if using blocking use wi
 <details>
 <summary>IF Case Construct</summary>
 
-## If
-If is mainly used to create priority logic
+## If[used in always block]
+If is mainly used to create priority logic. \
+It should be used in always block and variable we are trying to assign to the if must be register variable.
 ```
 syntax
 if <condition>         if <condition 1> 
@@ -1616,9 +1617,88 @@ OR of COND1 and COND2------->|		      |     |     |  \      |
 										                  |         
 													  condition 1   
 ```
-A latch is introduced as there is incomplete statement so for latch to turn on the OR logic of cond1 and cond2 is required which means when the both the conditions are false the latch is gona turn on. \
+A latch is introduced as there is incomplete statement so for latch to turn on the OR logic of cond1 and cond2 is required which means when the both the conditions are false the latch is gona turn on. 
 
 This is infered latch which comes when there is incomplete latch
+
+## Case[used in always block]
+It should be used in always block and variable we are trying to assign to the case must be register variable. \
+syntax
+```
+reg y
+always @(*)
+begin
+case (sel)
+  2,b00:
+  begin
+  ----(c1)
+  end
+  2'b01:
+  begin
+  ----(c2)
+  end
+  ...
+  ...
+  ..
+  2'b11:
+  begin
+  ----(c4)
+  end
+  ...
+  ...
+  ..
+end case
+end
+```
+### Caveats with case
+1. Incomplete case => infered latches
+   solution is code case with defaul so lets see how.
+```   
+case [1]               case[2]
+
+reg [1:0]
+always @(*)
+begin
+case (sel)            case (sel)
+  2,b00:                 2,b00:
+  begin                  begin
+  ----(c1)               ---(c1)
+  end                    end
+  2'b01:                 2'b01:
+  begin                  begin
+  -----(c2)              ----(c2)
+  end                    end
+endcase                  default:
+end                      endcase
+```
+In case 1 we specifed only 2 inputs as it is having 2 select lines it generate 4 inputs but we only gave 2 so remaining will get latched but in case 2 as we used default the remaining 2 inputs will be assigined with default values which avoides laching of the design
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
