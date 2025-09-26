@@ -1919,3 +1919,30 @@ When we do simulation for the above code the gtkwave get confused what to apply 
 ## Looping Constucts
 For loop => used in always block. This is used for evaluating expressions repeatedly for multiple times not for instantiating HW. \
 For loop generator => outside always block. should not use/ cannot be used inside always block. The For loop generator used for instantiating in Hard Ware(HW). This is used to instantiate HW(like and, or, etc) multiple times.
+
+Example 
+```
+2:1 Mux
+case 1                  case 2
+always @ (*)           assign y = sel?(i0 : i1);
+begin 
+case(sel)              
+  1'b0: y = i0;        
+  1'b1: y = i1;        
+end case                
+end                    
+```
+For 2:1 mux the case 2 format would be easy instead of the case 1 as it will be simple but if complexity increases like 32:1 mux the case 2 become difficult to write and the case 1 would be easy to write. But if complexity still increases like 128:1 the no of lines increases which is bad in coding point of view where we can use blocking statements
+
+```
+integer i
+always @ (*)                 assuming:- input[31:0] bus
+begin                                    
+for(i=0; i<32; i=i+1)
+begin
+if(i == sel)
+y = input[i];
+end 
+end
+```
+This the 32:1 mux which is easy to write. For any big mux the above for is used to simplify the code. 
