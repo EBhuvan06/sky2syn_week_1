@@ -1912,4 +1912,11 @@ When we do simulation for the above code the gtkwave get confused what to apply 
  ![GLS simulation case](Week_1/bad_cas_gls.png)
 
 
+</details>
+<details>
+<summary>For loop and For generator</summary>
+
+## Looping Constucts
+For loop => used in always block. 
+For loop generator => outside always block. should not use/ cannot be used in always block.
 
