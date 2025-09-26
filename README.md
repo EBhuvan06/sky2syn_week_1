@@ -1629,24 +1629,21 @@ reg y
 always @(*)
 begin
 case (sel)
-  2,b00:
+  case1:
   begin
   ----(c1)
   end
-  2'b01:
+  case2:
   begin
   ----(c2)
   end
-  ...
-  ...
-  ..
-  2'b11:
+  case3:
   begin
-  ----(c4)
+  ----(c3)
   end
-  ...
-  ...
-  ..
+  default:
+  ....
+  ....
 end case
 end
 ```
