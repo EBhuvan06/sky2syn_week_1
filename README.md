@@ -1798,7 +1798,7 @@ Now lets check the synthesis and simulation output
 ## Incomplete case
 Code
 ```
-module incomp if2 (input i0, input i1, input i2, input [1:0], output reg y);
+module incomp_case  (input i0, input i1, input i2, input [1:0], output reg y);
 always @ (*)
 begin 
 case(sel)
@@ -1830,12 +1830,13 @@ When we run simulation when select is 00 output Y is following io when select is
 Now in synthesis we expected a MUX but we get a D-LATCh as there is latching of 2 and 3 (10 and 11) is not connected so they got latched and the D-LATCH has come and MUX2_1 is used for the selection of inputs 0 and 1(00 and 01).
 ![Incomplete Case Synth](Week_1/incomp_case_synth.png)
 
- ## Lets see complete latch
+ ## Lets see complete case
 code
 ```
-module incomp if2 (input i0, input i1, input i2, input [1:0], output reg y);         |\  
+module comp_case (input i0, input i1, input i2, input [1:0], output reg y);          |\  
 always @ (*)                                                                         |  \                 
-begin                                                                         i0---->|0   \                                case(sel)                                                                     i1---->|1    |       
+begin                                                                         i0---->|0   \
+case(sel)                                                                     i1---->|1    |       
 2'b00 : y = i0;                                                                 |--->|2   Y|---->Y
 2'b01 : y = i1;                                                            i2---|--->|     |    
 default : y =i2;                                                                |--->|3   /         
@@ -1857,7 +1858,7 @@ In synthesis we can see that there are no latches only basic gates had been used
 ## Partial case
 
 ```
-module incomp if2 (input i0, input i1, input i2, input [1:0], output reg y, output reg x);
+module partial_case_assign(input i0, input i1, input i2, input [1:0]sel, output reg y, output reg x);
 always @ (*)                                     |\  
 begin                                            |  \ 
 case (sel)                                i0---->|0   \  
@@ -1891,12 +1892,25 @@ case (sel)                                i0---->|0   \
 From synthesis there is no latch in the path of Y but there is a latch in the path of X as we expected as we discussed in the theory.                
  img.                 
 
-
-
-
-
-
-
+## Bad case (overlapping case statements)
+```
+module bad_case (input i0, input i1, input i2, input [1:0]sel, output reg y);
+always @ (*)
+begin 
+case(sel)
+  2'b00: y = i0;
+  2'b01: y = i1;
+  2'b10: y = i2;
+  2'b1?: y = i3;
+  //2'b11: y = i3;
+endcase
+end
+endmodule
+```
+When we do simulation for the above code the gtkwave get confused what to apply i2 or i3 for 10 so the output will be High when the condition 10 comes.
+ img
+ But when we apply GLS to the netlist there will be no confusion it selects the i3 directly so lets see simulation output.
+ img
 
 
 
