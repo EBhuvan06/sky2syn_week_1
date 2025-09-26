@@ -1748,12 +1748,12 @@ endmodule									                               |     |                    |   
 ```													                                       
 As the else block is not assigined then the unconnected input 0 is geting latched and its now simpply loking like a D-LATCH. \
 so lets check wave form.
-image
+![Incomplete Simulation output](Week_1/synth_out.png)
  
 From simulation we can say that when ever the select line goes low it following the constant out either 1 or 0 and when ever its going high its following i1 this how the the we can say incomplete if statement.
 
 Lets check the synthesis
-imaage
+![Incomplete Synthesis](Week_1/synth_if.png)
 
 Our aim is code the mux but it is syntesised to a D-Latch (check the highlighted part). This is because of the incomplete if statement.
 
@@ -1785,8 +1785,9 @@ Similarly to incomplete if_1 we know that as there is a no else statement so the
 
 
 Now lets check the synthesis and simulation output
+![Incomplete Simulation output](Week_1/synth_out2.png)
 
-
+![Incomplete Synthesis 2](Week_1/synth_if2.png)
 
 
 
