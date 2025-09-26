@@ -1581,7 +1581,7 @@ c3--->|1   /      |   Y1|-------->|0   \
                       
 ## Danger/caution with if => INFERED LATCHES
 Infered latch is bad coding style which comes with incomplete IF statement
-
+```
                                      ___________________________                                                            
                                     |     |\                    |        
 								    |     |  \                  |            
@@ -1596,11 +1596,11 @@ y = b;									  |     |     |     |   |
 										 Condition 2  |/  |     
 										                  |         
 													  condition 1     
-
+```
 If we dont say what to do if both the conditions are not satisfied so it will latch with output and try to retain the value of y
-	                       
+```	                       
                                                                                                                      
-```                                                                                              
+                                                                                           
                               __________________________________                                                            
                              |            |\                    |        
 						     |	          |  \                  |            
