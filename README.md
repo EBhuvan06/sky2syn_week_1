@@ -1890,8 +1890,7 @@ case (sel)                                i0---->|0   \
    ----------------------                    
 ```
 From synthesis there is no latch in the path of Y but there is a latch in the path of X as we expected as we discussed in the theory.                
- img.                 
-
+![Partial Case Synth](Week_1/partial_case.png)
 ## Bad case (overlapping case statements)
 ```
 module bad_case (input i0, input i1, input i2, input [1:0]sel, output reg y);
@@ -1908,9 +1907,9 @@ end
 endmodule
 ```
 When we do simulation for the above code the gtkwave get confused what to apply i2 or i3 for 10 so the output will be High when the condition 10 comes.
- img
+ ![RTL simulation case](Week_1/bad_case_rtl.png)
  But when we apply GLS to the netlist there will be no confusion it selects the i3 directly so lets see simulation output.
- img
+ ![GLS simulation case](Week_1/bad_cas_gls.png)
 
 
 
