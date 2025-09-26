@@ -1450,7 +1450,7 @@ end
 endmodule
 ```
 In the above code as we can see the always block executes only when selction line has a change if there is change in the inputs or not this so this is simulation errorr.
-lets see the simulation output of the above code. \
+lets see the simulation output of the above code. 
 
  ![Simulation Mismatch](Week_1/bad_mux.png)
  
