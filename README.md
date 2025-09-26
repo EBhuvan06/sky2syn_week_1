@@ -1471,15 +1471,58 @@ gtkwave tb_bad_mux.vcd
 We can se that its giving the exact output of mux this is what we call simulation miss match.
  ![BAD_MUX](Week_1/bad_gls.png)
 
+Lets see the another examle of blocking statement synthesis abd simulation mis match which we disscused before
+```
+Aim
+            \------\                                           
+A ----------->\      \               
+               \       \      q0     ------ 
+                )       ) --------->|       \
+               /       /            |        |----->Y
+B ---------->/        /       C---->|       /
+            /-------/                ------
+             OR GATE                 
 
+module blocking_caveat (input a , input b , input  c, output reg d); 
+reg x;
+always @ (*)
+begin
+	d = x & c;
+	x = a | b;
+end
+endmodule
+```
+Lets see the RTL simulatiomn with commands
+```
+# commands
+iverilog blocking_caveat.v tb_blocking_caveat.v
+./a.out
+gtkwave tb_blocking_caveat.vcd
+```
+Waveform
 
+Lets see synthesis with commands
+```
+# commands
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog blocking_caveat.v
+synth -top blocking_caveat
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog -noattr blocking_caveat_net.v
+show
+```
+Waveform
 
+Lets see GLS with commands
+```
+# Commands
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v blocking_caveat_net.v tb_blocking_caveat.v
+./a.out
+gtkwave tb_blocking_caveat.vcd
 
+```
 
-
-
-
-
+Waveform
 
 
 
