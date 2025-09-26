@@ -1917,6 +1917,5 @@ When we do simulation for the above code the gtkwave get confused what to apply 
 <summary>For loop and For generator</summary>
 
 ## Looping Constucts
-For loop => used in always block. 
-For loop generator => outside always block. should not use/ cannot be used in always block.
-
+For loop => used in always block. This is used for evaluating expressions repeatedly for multiple times not for instantiating HW. \
+For loop generator => outside always block. should not use/ cannot be used inside always block. The For loop generator used for instantiating in Hard Ware(HW). This is used to instantiate HW(like and, or, etc) multiple times.
