@@ -1670,6 +1670,69 @@ end                      endcase
 ```
 In case 1 we specifed only 2 inputs as it is having 2 select lines it generate 4 inputs but we only gave 2 so remaining will get latched but in case 2 as we used default the remaining 2 inputs will be assigined with default values which avoides laching of the design.
 
+2. Partial assignments in case 
+```                                 
+reg [1:0]sel;                                                 |\  
+reg x, y;                                                     |  \ 
+always @ (*)                                            a---->|0   \  
+begin                                                   c---->|1    |  
+case (sel)                                               |--->|2   X|---->
+  2'b00:                                           d---->|    |     |
+  begin                                                  |--->|3   /
+  x = a; we assigned x and y in for 00                        |  /|
+  y = b;                                                      |/  | 
+  end                                                             |----sel
+  2'b01:                                                      |\  |
+  begin                                                       |  \| 
+  x = c; but we only assigned x not y for 01            b---->|0   \ 
+  end                                               Latch---->|1    |  
+  default:                                               |--->|2   Y|---->    
+  begin                                            b---->|    |     |   
+  x = d; expect those cases we assigned x and y          |--->|3   /    
+  y = b;                                                      |  /
+  end                                                         |/ 
+endcase                                                     
+end                                                                   
+```                                   
+So from the above code we can say that for 0 x and y both are assigined but for 1 we only assigined x but not y so now the 1 of y is going to get infered latch this is the problem if we included default also but we missed one of the input this will cause error of infered latch. \
+So assign all the outputs in all the segments of the case.
+
+3. Over laping case statements
+   
+if we write  \                       
+priority high to low \               
+| if \
+| else if \
+| else if \
+| else \ 
+V \
+only one portion can be executed all can not be executed. Once one is executed the always block will be ended 
+
+
+
+if we write case like this \
+Execution of every block \
+| 2'b00: \
+|.... \
+| 2'bo1: \
+|.... \
+| 2,b10: \
+|.... \
+| 2'b1?: //hear question mark takes any value 0 or 1 \
+|.... \
+V \
+supose if we take 10 both 3 and 4 will be executed as ? takes any value so in this case it runs one by one if one is executed it will not end the always block it will execute every case statement and then it quits. \
+So when we are writing cases there should be no overlaping like above example.
+
+
+
+
+
+
+
+
+
+
 
 
 
