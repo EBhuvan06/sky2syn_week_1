@@ -1557,10 +1557,11 @@ begin                  else if <condition 3>
 end                    else
                        ----(e)
                        ----
+```
 Lets see how the code works
 First if is evaluated if the if block condition is not satisfied it go to else if if this block also not satisfied it goes to else if 2 and soo on and if all the blocks conditions are not satisfied then finally else is executed. \
 Lets see how the hard ware looks like 
-
+```
       |\                            
       |  \                              
 e---->|0   \      |\                                                  
@@ -1576,8 +1577,8 @@ c3--->|1   /      |   Y1|-------->|0   \
                   condition 2     |/  | 
                                       |
                                  condition 1
-                         
-
+```
+                      
 ## Danger/caution with if => INFERED LATCHES
                              
 
