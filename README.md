@@ -1409,7 +1409,7 @@ iverilog ternary_operator_mux.v tb_ternary_operator_mux.v
 ./a.out
 gtkwave tb_ternary_operator_mux.vcd
 ```
-```
+
  ![simulation](Week_1/RTL.png)
 
 And synthesis of the ternary_operator_mux.v
