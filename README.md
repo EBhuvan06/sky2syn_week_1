@@ -1534,8 +1534,10 @@ Waveform
 
 NOTE:- Dont using blocking assigment prefer non blockin if using blocking use with atmost care and run the circuit because there are chances of simulation and synthesis mismatch
 
-
-
+</details>
+</details>
+<details>
+<summary>Day_5</summary>
 
 
 
