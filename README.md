@@ -1,4 +1,4 @@
-## sky2syn_week_1
+<img width="1849" height="1200" alt="image" src="https://github.com/user-attachments/assets/a8fefd59-6368-47ff-a4ef-eb21aaeab235" />## sky2syn_week_1
 Skywater to Synopsys
 <details>
 <summary>Week_1</summary>
@@ -1725,29 +1725,66 @@ V
 supose if we take 10 both 3 and 4 will be executed as ? takes any value so in this case it runs one by one if one is executed it will not end the always block it will execute every case statement and then it quits. \
 So when we are writing cases there should be no overlaping like above example.
 
+</details>
+<details>
+<summary>Labs on incomplete if</summary>
+
+## Incomplete if_1
+```
+
+module incomp_if (input i0, input i1, input i2, output reg y);         _____________                                                            
+always @ (*)                                                         |     |\        |                 ___________
+	begin							                                 |     |  \      |                |           |
+    if (i0)			                                                 |---->|0   \    |        i1 ---->| D       Q |----->
+    y <= i1;							                                   |     |   |                |           |
+end 				                                                       |   Y |---|-> Y =>         |           |
+endmodule									                               |     |                    |           |
+                                                                    i1---->|1   /             i0 ---->|EN         |
+								                                           |  /|                      |___________|
+										                                   |/  |                         D-LATCH
+                                                                               |            
+										                                       i0     
+										                                                       
+```													                                       
+As the else block is not assigined then the unconnected input 0 is geting latched and its now simpply loking like a D-LATCH. \
+so lets check wave form.
+image
+ 
+From simulation we can say that when ever the select line goes low it following the constant out either 1 or 0 and when ever its going high its following i1 this how the the we can say incomplete if statement.
+
+Lets check the synthesis
+imaage
+
+Our aim is code the mux but it is syntesised to a D-Latch (check the highlighted part). This is because of the incomplete if statement.
+
+## Incomplete if_2
+
+
+```
+                                     ___________________________                                                            
+                                    |     |\                    |        
+								    |     |  \                  |            
+if <condition 1>				    |---->|0   \      |\        | 
+y = a;								      |     |     |  \      |                    _________
+else if <condition 2>					  |   Y0|---->|0   \    |              ---->| D     Q |---->
+y = b;									  |     |     |     |   |                   |         |
+# no else block is intialised	   i3---->|1   /      |   Y |---|----->  ==>        |         |
+								          |  /|       |     |                  |--->|EN       |
+										  |/  |  i1-->|1   /                   |    |_________|
+    									      |       |  /|                    |
+										     i2       |/  |            OR of i0 and i2
+										                  |         
+													      i0  
+```
+
+
+Similarly to incomplete if_1 we know that as there is a no else statement so the mux one input is not connected which is latched with output and OR is used for enabling the D-LATCH only when any of the input is high if both the inputs are low it takes previous state.  
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Now lets check the synthesis and simulation output
 
 
 
