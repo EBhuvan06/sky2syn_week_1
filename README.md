@@ -1538,15 +1538,48 @@ NOTE:- Dont using blocking assigment prefer non blockin if using blocking use wi
 </details>
 <details>
 <summary>Day_5</summary>
+<details>
+<summary>IF Case Construct</summary>
 
+## If
+If is mainly used to create priority logic
+```
+syntax
+if <condition>         if <condition 1> 
+begin                  -----(c1)
+----                   -----
+----                   else if <condition 2>
+end                    -----(c2)
+else                   -----
+begin                  else if <condition 3>
+-----                  ---- (c3)
+-----                  ---- 
+end                    else
+                       ----(e)
+                       ----
+Lets see how the code works
+First if is evaluated if the if block condition is not satisfied it go to else if if this block also not satisfied it goes to else if 2 and soo on and if all the blocks conditions are not satisfied then finally else is executed. \
+Lets see how the hard ware looks like 
 
+      |\                            
+      |  \                              
+e---->|0   \      |\                                                  
+      |     |     |  \           
+      |   Y0|---->|0   \          |\
+      |     |     |     |         |  \ 
+c3--->|1   /      |   Y1|-------->|0   \ 
+      |  /|       |     |         |     |
+      |/  |   C2->|1   /          |    Y|----> Y     
+          |       |  /|           |     |    
+     Condition 3  |/  |      c1-->|1   /   
+                      |           |  /|
+                  condition 2     |/  | 
+                                      |
+                                 condition 1
+                         
 
-
-
-
-
-
-
+## Danger/caution with if => INFERED LATCHES
+                             
 
 
 
