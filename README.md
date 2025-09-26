@@ -1761,20 +1761,21 @@ Our aim is code the mux but it is syntesised to a D-Latch (check the highlighted
 
 
 ```
-                                     ___________________________                                                            
-                                    |     |\                    |        
-								    |     |  \                  |            
-if <condition 1>				    |---->|0   \      |\        | 
-y = a;								      |     |     |  \      |                    _________
-else if <condition 2>					  |   Y0|---->|0   \    |              ---->| D     Q |---->
-y = b;									  |     |     |     |   |                   |         |
-# no else block is intialised	   i3---->|1   /      |   Y |---|----->  ==>        |         |
-								          |  /|       |     |                  |--->|EN       |
-										  |/  |  i1-->|1   /                   |    |_________|
-    									      |       |  /|                    |
-										     i2       |/  |            OR of i0 and i2
-										                  |         
-													      i0  
+
+module incomp if2 (input i0, input i1, input i2, input i3, output reg y);    ___________________________                                                            
+always @ (*)                                                               |     |\                    |        
+begin								                                       |     |  \                  |            
+if(i0)			                                                           |---->|0   \      |\        | 
+y <= i1;								                                         |     |     |  \      |                    _________
+else if (i2)				                                                     |   Y0|---->|0   \    |              ---->| D     Q |---->
+y <= i3;								                                    	 |     |     |     |   |                   |         |
+end                                                                       i3---->|1   /      |   Y |---|----->  ==>        |         |
+endmodule								                                         |  /|       |     |                  |--->|EN       |
+										                                         |/  |  i1-->|1   /                   |    |_________|
+    									                                             |       |  /|                    |
+										                                            i2       |/  |            OR of i0 and i2
+										                                                         |         
+													                                             i0  
 ```
 
 
@@ -1790,8 +1791,9 @@ Now lets check the synthesis and simulation output
 ![Incomplete Synthesis 2](Week_1/synth_if2.png)
 
 
-
-
+</details>
+<details>
+<summary>Labs on case</summary>
 
 
 
