@@ -1795,21 +1795,96 @@ Now lets check the synthesis and simulation output
 <details>
 <summary>Labs on case</summary>
 
+## Incomplete case
+Code
+```
+module incomp if2 (input i0, input i1, input i2, input [1:0], output reg y);
+always @ (*)
+begin 
+case(sel)
+2'b00 : y = i0;
+2'b01 : y = i1;
+endcase
+end
+endmodule
 
 
+        |\  
+        |  \                                                      
+ i0---->|0   \                                                   _____________________    
+ i1---->|1    |                             __________          | ___select___|_OUTPUT_|
+   |--->|2   Y|---|->Y  ===>    2_1 MUX--->|D        Q|----->   |__[1]____[0]_|___Y____|
+ --|--->|     |   |                        |          |         |   0      0  |  I0    |
+   |--->|3   /    |                        |          |         |   0      1  |  I1    |
+   |    |  /|     |             sel[1]'--->|EN        |         |   1      0  |  Latch |
+   |    |/| |     |                        |__________|         |   1      1  |  Latch |
+   |      | |     |                                              ----------------------
+   |     s1 s2    |                                   
+   |______________|
+```
 
+Basically we selected EN as compement of 1 because when there is 1 in MSB then only the inputs getting latched so for en i used complement of select. \
+When we run simulation when select is 00 output Y is following io when select is 01 output Y is following i1 now the moment select is becoming 10 or 11 it is latching onto the previous value of Y as shown in the below simulation output.
+ image
 
+Now in synthesis we expected a MUX but we get a D-LATCh as there is latching of 2 and 3 (10 and 11) is not connected so they got latched and the D-LATCH has come and MUX2_1 is used for the selection of inputs 0 and 1(00 and 01).
+ image
 
+ ## Lets see complete latch
+code
+```
+module incomp if2 (input i0, input i1, input i2, input [1:0], output reg y);         |\  
+always @ (*)                                                                         |  \                 
+begin                                                                         i0---->|0   \                                                 
+case(sel)                                                                     i1---->|1    |       
+2'b00 : y = i0;                                                                 |--->|2   Y|---->Y
+2'b01 : y = i1;                                                            i2---|--->|     |    
+default : y =i2;                                                                |--->|3   /         
+endcase                                                                              |  /|    
+end                                                                                  |/| |  
+endmodule                                                                              | |     
+                                                                                      s1 s2                                       
 
+```   
+In this there will be no latch condition as there i a default condition so it will be executed and there will no problem of incompleteness                                                                      
+In simulation  when select is 10 or 11 it is exactly following i2 if there is 00 or 10 it is following i0 and i1. There is no latching operation here as we assigined it.
 
+img
 
+In synthesis we can see that there are no latches only basic gates had been used.
 
+img
 
+## Partial case
 
+```
+module incomp if2 (input i0, input i1, input i2, input [1:0], output reg y, output reg x);
+always @ (*)                                     |\  
+begin                                            |  \ 
+case (sel)                                i0---->|0   \  
+2'b00: begin                              i1---->|1    |  
+  y = i0;                                   |--->|2   Y|---->Y  NOT LATCH
+  x = i2;                            i1---->|    |     |
+ end                                        |--->|3   /
+ 2'b01: y = i1;                                  |  /|
+ default: begin                                  |/  | 
+   x = i1;                                           |----sel
+   y = i2;                                       |\  |
+  end                                            |  \| 
+  endcase                                 i0---->|0   \ 
+  end                                  Latch---->|1    |  
+  endmodule                                 |--->|2   X|---->X LATCH
+                                     i1---->|    |     |   
+                                            |--->|3   /    
+                                                 |  /
+                                                 |/ 
+```                                                    
+                                                                           
 
+                    
 
-
-
+                    
+                  
 
 
 
