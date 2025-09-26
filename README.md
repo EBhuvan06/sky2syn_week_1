@@ -1,4 +1,4 @@
-<img width="1849" height="1200" alt="image" src="https://github.com/user-attachments/assets/a8fefd59-6368-47ff-a4ef-eb21aaeab235" />## sky2syn_week_1
+## sky2syn_week_1
 Skywater to Synopsys
 <details>
 <summary>Week_1</summary>
