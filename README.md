@@ -1532,7 +1532,7 @@ Waveform
 
 ![Blocking_GLS](Week_1/blocking_gls.png)
 
-
+NOTE:- Dont using blocking assigment prefer non blockin if using blocking use with atmost care and run the circuit because there are chances of simulation and synthesis mismatch
 
 
 
