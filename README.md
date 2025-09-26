@@ -1867,7 +1867,7 @@ case (sel)                                i0---->|0   \
  end                                        |--->|3   /
  2'b01: y = i1;                                  |  /|
  default: begin                                  |/  | 
-   x = i1;                                           |----sel
+   x = i1;                                           |----sel[1:0]
    y = i2;                                       |\  |
   end                                            |  \| 
   endcase                                 i0---->|0   \ 
@@ -1877,13 +1877,19 @@ case (sel)                                i0---->|0   \
                                             |--->|3   /    
                                                  |  /
                                                  |/ 
-```                                                    
-                                                                           
-
-                    
-
-                    
-                  
+```                                                                                                        
+```
+   _____________________    
+  | ___select___|_OUTPUT_|
+  |__[1]____[0]_|___Y____|
+  |   0      0  |  I0    |--|
+  |   0      1  |  Latch |  |---> determine the enable condition
+  |   1      0  |  i1    |--|     sel[1] + sel[0]' = EN
+  |   1      1  |  i1    |--|     if the confition not satisfied Latch occurs
+   ----------------------                    
+```
+From synthesis there is no latch in the path of Y but there is a latch in the path of X as we expected as we discussed in the theory.                
+ img.                 
 
 
 
