@@ -1394,6 +1394,10 @@ endmodule
 Both gives same circuit but for first old value of q0 is used but for second latest value of q0 is used. \
 To avoid this type of issues run GLS on netlist to check the bhevaour of the cicuit and match with expected output as no mismatches.
 
+</details>
+<details>
+<summary>Lab on GLS and Synthesis and Simulation mismatch</summary>
+
 ## Labs on GLS
 Ternary operator MUX
 ```
