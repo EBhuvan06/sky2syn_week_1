@@ -1698,29 +1698,30 @@ So from the above code we can say that for 0 x and y both are assigined but for 
 So assign all the outputs in all the segments of the case.
 
 3. Over laping case statements
-   
-if we write  \                       
-priority high to low \               
-| if \
-| else if \
-| else if \
-| else \ 
-V \
+```   
+if we write                     
+priority high to low               
+| if 
+| else if 
+| else if 
+| else 
+V 
 only one portion can be executed all can not be executed. Once one is executed the always block will be ended 
 
 
 
-if we write case like this \
-Execution of every block \
-| 2'b00: \
-|.... \
-| 2'bo1: \
-|.... \
-| 2,b10: \
-|.... \
-| 2'b1?: //hear question mark takes any value 0 or 1 \
-|.... \
-V \
+if we write case like this
+Execution of every block 
+| 2'b00:
+|.... 
+| 2'bo1: 
+|.... 
+| 2,b10: 
+|.... 
+| 2'b1?: //hear question mark takes any value 0 or 1 
+|.... 
+V
+```
 supose if we take 10 both 3 and 4 will be executed as ? takes any value so in this case it runs one by one if one is executed it will not end the always block it will execute every case statement and then it quits. \
 So when we are writing cases there should be no overlaping like above example.
 
