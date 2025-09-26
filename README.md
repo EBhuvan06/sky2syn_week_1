@@ -1825,10 +1825,10 @@ endmodule
 
 Basically we selected EN as compement of 1 because when there is 1 in MSB then only the inputs getting latched so for en i used complement of select. \
 When we run simulation when select is 00 output Y is following io when select is 01 output Y is following i1 now the moment select is becoming 10 or 11 it is latching onto the previous value of Y as shown in the below simulation output.
- image
+![Incomplete Case](Week_1/incomp_case_output.png)
 
 Now in synthesis we expected a MUX but we get a D-LATCh as there is latching of 2 and 3 (10 and 11) is not connected so they got latched and the D-LATCH has come and MUX2_1 is used for the selection of inputs 0 and 1(00 and 01).
- image
+![Incomplete Case Synth](Week_1/incomp_case_synth.png)
 
  ## Lets see complete latch
 code
@@ -1848,11 +1848,11 @@ endmodule                                                                       
 In this there will be no latch condition as there i a default condition so it will be executed and there will no problem of incompleteness                                                                      
 In simulation  when select is 10 or 11 it is exactly following i2 if there is 00 or 10 it is following i0 and i1. There is no latching operation here as we assigined it.
 
-img
+![Complete Case](Week_1/comp_case_out.png)
 
 In synthesis we can see that there are no latches only basic gates had been used.
 
-img
+![Complete Case Synth](Week_1/comp_case_synth.png)
 
 ## Partial case
 
