@@ -1648,7 +1648,7 @@ end case
 end
 ```
 ### Caveats with case
-1. Incomplete case => infered latches
+1. Incomplete case => infered latches \
    solution is code case with defaul so lets see how.
 ```   
 case [1]               case[2]
@@ -1668,7 +1668,7 @@ case (sel)            case (sel)
 endcase                  default:
 end                      endcase
 ```
-In case 1 we specifed only 2 inputs as it is having 2 select lines it generate 4 inputs but we only gave 2 so remaining will get latched but in case 2 as we used default the remaining 2 inputs will be assigined with default values which avoides laching of the design
+In case 1 we specifed only 2 inputs as it is having 2 select lines it generate 4 inputs but we only gave 2 so remaining will get latched but in case 2 as we used default the remaining 2 inputs will be assigined with default values which avoides laching of the design.
 
 
 
