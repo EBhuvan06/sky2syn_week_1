@@ -1471,7 +1471,7 @@ gtkwave tb_bad_mux.vcd
 We can se that its giving the exact output of mux this is what we call simulation miss match.
  ![BAD_MUX](Week_1/bad_gls.png)
 
-Lets see the another examle of blocking statement synthesis abd simulation mis match which we disscused before
+Lets see the another examle of blocking statement synthesis and simulation mismatch which we disscused before
 ```
 Aim
             \------\                                           
@@ -1493,6 +1493,7 @@ end
 endmodule
 ```
 Lets see the RTL simulatiomn with commands
+
 ```
 # commands
 iverilog blocking_caveat.v tb_blocking_caveat.v
@@ -1501,6 +1502,8 @@ gtkwave tb_blocking_caveat.vcd
 ```
 Waveform
 
+ ![Blocking statement](Week_1/blocking_rtl.png)
+ 
 Lets see synthesis with commands
 ```
 # commands
@@ -1511,7 +1514,9 @@ abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 write_verilog -noattr blocking_caveat_net.v
 show
 ```
-Waveform
+synthesis
+
+![Blocking Synthesis](Week_1/blocking_syn.png)
 
 Lets see GLS with commands
 ```
@@ -1524,7 +1529,7 @@ gtkwave tb_blocking_caveat.vcd
 
 Waveform
 
-
+![Blocking_GLS](Week_1/blocking_gls.png)
 
 
 
