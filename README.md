@@ -1394,13 +1394,40 @@ endmodule
 Both gives same circuit but for first old value of q0 is used but for second latest value of q0 is used. \
 To avoid this type of issues run GLS on netlist to check the bhevaour of the cicuit and match with expected output as no mismatches.
 
+## Labs on GLS
+Ternary operator MUX
+
+module ternary_operator_mux (
+input i0 , input i1 , input sel , output y);
+assign y = sel? i1 : i0;
+endmodule
+
+Lets check basic RTL output of the ternary_oprator_mux.v
+commands to check basic output wave form.
+
+iverilog ternary_operator_mux.v tb_ternary_operator_mux.v
+./a.out
+gtkwave tb_ternary_operator_mux.vcd
+
+And synthesis of the ternary_operator_mux.v
+commands to check synthesis 
+
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog ternary_operator_mux.v
+synth -top ternary_operator_mux
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+write_verilog -noattr ternary_operator_mux_net.v
+
+The above mentioned graph is a RTL graph but to get the GLS output we have to run the below commands
+
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v ternary_operator_mux_net.v tb_ternary_operator_mux.v
+# we have to add the above .v files for GLC simulation and next add Netlist and Testbench (test bench is same for both the RTL and Netlist) 
+./a.out
+gtkwave tb_ternary_operator_mux.vcd
+# observe the output put wave for 
 
 
-
-
-
-
-
-
+From the image we can say that it is a GLS simulation because for GLS under tb_ternary_operator_mux.v this there will the gate level instants but for RTL under tb_ternary_operator_mux.v this there will be a uut whic says its a RTL simulation.
 
 
