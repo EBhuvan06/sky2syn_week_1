@@ -1580,7 +1580,49 @@ c3--->|1   /      |   Y1|-------->|0   \
 ```
                       
 ## Danger/caution with if => INFERED LATCHES
-                             
+Infered latch is bad coding style which comes with incomplete IF statement
+
+                                     ___________________________                                                            
+                                    |     |\                    |        
+								    |     |  \                  |            
+if <condition 1>				    |---->|0   \      |\        | 
+y = a;								      |     |     |  \      |     
+else if <condition 2>					  |   Y0|---->|0   \    |      
+y = b;									  |     |     |     |   |      
+# no else block is intialised		b---->|1   /      |   Y1|---|----->
+								          |  /|       |     |         
+										  |/  |   a-->|1   /         
+    									      |       |  /|         
+										 Condition 2  |/  |     
+										                  |         
+													  condition 1     
+
+If we dont say what to do if both the conditions are not satisfied so it will latch with output and try to retain the value of y
+	                       
+                                                                                                                     
+```                                                                                              
+                              __________________________________                                                            
+                             |            |\                    |        
+						     |	          |  \                  |            
+			               LATCH--------->|0   \      |\        | 
+OR of COND1 and COND2------->|		      |     |     |  \      |     
+	                                      |   Y0|---->|0   \    |      
+								          |     |     |     |   |      
+                	                b---->|1   /      |   Y1|---|----->
+								          |  /|       |     |         
+										  |/  |   a-->|1   /         
+    									      |       |  /|         
+										 Condition 2  |/  |     
+										                  |         
+													  condition 1   
+```
+A latch is introduced as there is incomplete statement so for latch to turn on the OR logic of cond1 and cond2 is required which means when the both the conditions are false the latch is gona turn on. \
+
+This is infered latch which comes when there is incomplete latch
+
+
+
+
 
 
 
