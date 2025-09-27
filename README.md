@@ -2035,6 +2035,92 @@ For 3 bit addition we had instantiated FA for 3 times if it is a 8 bit we have t
 <details>
 <summary>Labs on For loop and For generator</summary>
 
+## For Loop lab
+```
+module mux_generate (input i0, input i2, input i3, input [1:0]sel, output reg y);
+wrire [3:0] i_int;
+assign i_int = {i3,i2,i1,i0}
+integer k;
+always @ (*)
+begin
+for(k = 0; k < 4; k=k+1) begin
+if(k == sel)
+ y = i_int[k];
+ end 
+ end
+ endmodule
+```
+From the code it has 4 inputs i0,i1,i2,i3 and 2 selection lines and a output. We are makin i_int as a bus which are wires which help to connect with output. In for loop if k == select as selc is 2 bit so it can take 11 or 01 or 10 or 11 if the selcet value is same as the k then the y is assigined with int_int[k] which is connected to reespective inputs so once a bus is active it assign input to the output. \
+
+Lets see the Simulation and synthesis results.
+img
+
+img
+
+```
+module demux_case ( input [2:0] sel, input i,
+output o0, output ol, output o2, output o3, output o4, output o5, output об, output o7);
+red [7:0]y_int;
+assign (o7,o6,o5,o4,o3,o2,o1,o0) = y int;
+integer k;
+always @ (*)
+begin                                      // using for before oart is same
+y_int = 8'b0; // to avoid latching
+case(sel)                                     for(k = 0; k < 8; k++) begin
+  3'b000 : y_int[0] = i;                           if(k == sel)
+  3'b001 : y int[1] = i;                               y_int[k] = i;
+  3'b010 : y int[2] = i;                      end
+  3'bo11 : y int[3] = i;                      end
+  3'b100 : y int[4] = i;                      end module
+  3'b101 : y int[5] = i;
+  3'b110 : y int[6] = i;
+  3'b111 : y int[7] = i;
+endcase
+end
+endmodule
+```
+
+
+The code is running for 13 lines using for but using case 20 lines for just a 1:8 demux as the complexity increases then the complexity also increases so this to avoid the lenghtyness of the code use for loop. They both work as a DEMUX lets see the simulation and synthesis output for both cases.
+
+
+
+## For generator lab
+```
+module fa (input a , input b , input c, output co , output sum);
+	assign {co,sum}  = a + b + c ;
+endmodule
+
+module rca (input [7:0] num1 , input [7:0] num2 , output [8:0] sum);
+wire [7:0] int_sum;
+wire [7:0]int_co;
+
+genvar i;
+generate
+	for (i = 1 ; i < 8; i=i+1) begin
+		fa u_fa_1 (.a(num1[i]),.b(num2[i]),.c(int_co[i-1]),.co(int_co[i]),.sum(int_sum[i]));
+	end
+
+endgenerate
+fa u_fa_0 (.a(num1[0]),.b(num2[0]),.c(1'b0),.co(int_co[0]),.sum(int_sum[0]));
+
+
+assign sum[7:0] = int_sum;
+assign sum[8] = int_co[7];
+endmodule
+```
+
+For suppose we are  adding M, N no of bits then the outout should be max[M,N]+1 not more than this. So from above inputs are 8 bit so output is 9 bit
+
+
+
+
+
+
+
+
+
+
 
 
 
