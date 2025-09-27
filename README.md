@@ -1920,6 +1920,7 @@ When we do simulation for the above code the gtkwave get confused what to apply 
 For loop => used in always block. This is used for evaluating expressions repeatedly for multiple times not for instantiating HW. \
 For loop generator => outside always block. should not use/ cannot be used inside always block. The For loop generator used for instantiating in Hard Ware(HW). This is used to instantiate HW(like and, or, etc) multiple times.
 
+## FOR loop[inside always block]
 Example 
 ```
 2:1 Mux
@@ -1934,6 +1935,7 @@ end
 ```
 For 2:1 mux the case 2 format would be easy instead of the case 1 as it will be simple but if complexity increases like 32:1 mux the case 2 become difficult to write and the case 1 would be easy to write. But if complexity still increases like 128:1 the no of lines increases which is bad in coding point of view where we can use blocking statements
 
+MUX 32:1 
 ```
 integer i
 always @ (*)                 assuming:- input[31:0] bus
@@ -1946,3 +1948,108 @@ end
 end
 ```
 This the 32:1 mux which is easy to write. For any big mux the above for is used to simplify the code. 
+
+
+DEMUX 1:8 
+
+```
+integer i
+always @ (*)                 assuming:- output[7 :0] bus
+begin
+output[7:0] = 8'bo;                                  
+for(i=0; i<8; i=i+1)
+begin
+if(i == sel)
+output[i] = input;
+end 
+end
+```
+Very wide MUX/DEMUX for statement is very handy 
+
+## For generator[outside always block]
+
+and u_and1(.a(), .b() , .y());
+and u_and2(.a(), .b() , .y());
+...............................
+...............................
+and u_andn(.a(), .b() , .y());
+
+IF there are only two and gates the nwe can write but if there are large no of and gates or any Hardware it would be difficult to write that many times so For generator is used to replicate the  HW.
+
+genvar i; // we are using i as a generate variable
+generate 
+for (i=0; i<8; i=i+1) begin
+and u_and(.a(in[i]), .b(in2[i]) , .y(y[i]));
+end
+endgenerate
+
+This is used to generate the AND gate 8 times and each and gates has their own inputs and outputs a,b,y
+```
+            a   ------
+in[0] ---------|       \    y                      
+               |        |--------Y[0]
+in2[0] --------|       /            
+            b   ------    
+
+            a   ------
+in[1] ---------|       \    y                      
+               |        |--------Y[1]
+in2[1] --------|       /            
+            b   ------    
+
+......................................
+......................................
+......................................
+
+            a   ------
+in[7] ---------|       \    y                      
+               |        |--------Y[7]
+in2[7] --------|       /            
+            b   ------    
+	```		
+The loop is gona run for 7 times and instantiate 7 AND gates and ones it reaches 8 the for loop will be terminated. This is simply replication of HW.
+
+Example Ripple Carry Adder [RCA] 
+
+  |--1-| 1-|
+  |  1 | 1 | 1
+  |  0 |-0 |-1
+  1  0   0   0
+This means the carry is going to move forward so it is called Ripple carry adder
+
+
+  num2[2]                   num2[1]                   num2[0]
+    | num[2]                  | num[1]                  | num[0]
+    |   |   |-------|         |   |   |-------|         |   |   |-------|
+ ___V___V___V__     |      ___V___V___V__     |      ___V___V___V__   __|__   
+|              |    |     |              |    |     |              |   GND      
+| Full Adder-2 |    |     | Full Adder-1 |    |     | Full Adder-0 |       
+|______________|    |     |______________|    |     |______________|        
+   |       |        |________|       |        |________|       |
+   V       V                 V       V                 V       V
+ carry   sum[2]            carry   sum[1]            carry   sum[0]
+
+For 3 bit addition we had instantiated FA for 3 times if it is a 8 bit we have to instantiate it for 8 times and so as complexity increases the no of FA increases so to avoid this we use For loop generator
+
+</details>
+<details>
+<summary>Labs on For loop and For generator</summary>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
