@@ -2006,11 +2006,11 @@ in[7] ---------|       \    y
                |        |--------Y[7]
 in2[7] --------|       /            
             b   ------    
-	```		
+```		
 The loop is gona run for 7 times and instantiate 7 AND gates and ones it reaches 8 the for loop will be terminated. This is simply replication of HW.
 
 Example Ripple Carry Adder [RCA] 
-
+```
   |--1-| 1-|
   |  1 | 1 | 1
   |  0 |-0 |-1
@@ -2028,7 +2028,7 @@ This means the carry is going to move forward so it is called Ripple carry adder
    |       |        |________|       |        |________|       |
    V       V                 V       V                 V       V
  carry   sum[2]            carry   sum[1]            carry   sum[0]
-
+```
 For 3 bit addition we had instantiated FA for 3 times if it is a 8 bit we have to instantiate it for 8 times and so as complexity increases the no of FA increases so to avoid this we use For loop generator
 
 </details>
