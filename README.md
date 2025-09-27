@@ -2110,7 +2110,7 @@ assign sum[8] = int_co[7];
 endmodule
 ```
 
-For suppose we are  adding M, N no of bits then the outout should be max[M,N]+1 not more than this. So from above inputs are 8 bit so output is 9 bit
+For suppose we are  adding M, N no of bits then the outout should be max[M,N]+1 not more than this. So from above inputs are 8 bit so output is 9 bit. as we disscused in the theory lets see the simulation and synthesis output.
 
 
 
