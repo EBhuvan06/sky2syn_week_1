@@ -2053,9 +2053,9 @@ if(k == sel)
 From the code it has 4 inputs i0,i1,i2,i3 and 2 selection lines and a output. We are makin i_int as a bus which are wires which help to connect with output. In for loop if k == select as selc is 2 bit so it can take 11 or 01 or 10 or 11 if the selcet value is same as the k then the y is assigined with int_int[k] which is connected to reespective inputs so once a bus is active it assign input to the output. \
 
 Lets see the Simulation and synthesis results.
-img
+![Mux Out](Week_1/for_mux.png)
 
-img
+![Mux synth](Week_1/for_mux_syn.png)
 
 ```
 module demux_case ( input [2:0] sel, input i,
@@ -2083,8 +2083,13 @@ endmodule
 
 The code is running for 13 lines using for but using case 20 lines for just a 1:8 demux as the complexity increases then the complexity also increases so this to avoid the lenghtyness of the code use for loop. They both work as a DEMUX lets see the simulation and synthesis output for both cases.
 
+USING CASE
+![DeMux Out](Week_1/demux_case.png)
+![DeMux Out](Week_1/demux_case_syn.png)
 
-
+USING FOR
+![DeMux Out](Week_1/demux_for.png)
+![DeMux Out](Week_1/demux_for_syn.png)
 ## For generator lab
 ```
 module fa (input a , input b , input c, output co , output sum);
@@ -2113,7 +2118,7 @@ endmodule
 For suppose we are  adding M, N no of bits then the outout should be max[M,N]+1 not more than this. So from above inputs are 8 bit so output is 9 bit. as we disscused in the theory lets see the simulation and synthesis output.
 
 
-
+![RCA Out](Week_1/rca.png)
 
 
 
