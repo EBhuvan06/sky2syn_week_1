@@ -1967,22 +1967,22 @@ end
 Very wide MUX/DEMUX for statement is very handy 
 
 ## For generator[outside always block]
-
+```
 and u_and1(.a(), .b() , .y());
 and u_and2(.a(), .b() , .y());
 ...............................
 ...............................
 and u_andn(.a(), .b() , .y());
-
+```
 IF there are only two and gates the nwe can write but if there are large no of and gates or any Hardware it would be difficult to write that many times so For generator is used to replicate the  HW.
-
+```
 genvar i; // we are using i as a generate variable
 generate 
 for (i=0; i<8; i=i+1) begin
 and u_and(.a(in[i]), .b(in2[i]) , .y(y[i]));
 end
 endgenerate
-
+```
 This is used to generate the AND gate 8 times and each and gates has their own inputs and outputs a,b,y
 ```
             a   ------
